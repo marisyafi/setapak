@@ -21,8 +21,8 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>USERNAME</th>
-                                <th>DESKRIPSI</th>
+                                <th>NAMA COMPANY</th>
+                                <th>ALAMAT</th>
                                 <th>OPTION</th>
                             </tr>
                         </thead>
@@ -40,9 +40,9 @@ $(function () {
         serverSide: true,
         ajax: "{{ url('/pemandu-data')}}",
         columns: [
-            {data: 'id', name: 'id'},
-            {data: 'username', name: 'username'},
-            {data: 'deskripsi', name: 'deskripsi'},
+            {data: 'pemandu_id', name: 'pemandu_id'},
+            {data: 'nama_company', name: 'nama_company'},
+            {data: 'alamat', name: 'alamat'},
             {data: 'action', name: 'action'},
         ],
   });

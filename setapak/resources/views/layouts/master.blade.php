@@ -22,10 +22,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{{asset('dist/css/skins/skin-blue.min.css')}}">
   <!-- REQUIRED JS SCRIPTS -->
-  <!-- Nama
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css"> -->
+  <!-- Nama -->
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css"> -->
    <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('datatables/dataTables.bootstrap.css')}}">
+  
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -123,7 +124,7 @@ desired effect
           </li>
           <!-- Control Sidebar Toggle Button -->
           <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+            <a href="#"><i></i></a>
           </li>
         </ul>
       </div>
@@ -147,18 +148,6 @@ desired effect
         </div>
       </div>
 
-      <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Search...">
-          <span class="input-group-btn">
-              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-              </button>
-            </span>
-        </div>
-      </form>
-      <!-- /.search form -->
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
@@ -180,6 +169,15 @@ desired effect
           <ul class="treeview-menu">
             <li><a href="{{url('/pemandu-wisata')}}"><i class="fa fa-users"></i> Pemandu Wisata</a></li>
             <li><a href="{{url('/pembayaran')}}"><i class="fa fa-credit-card"></i> Pembayaran</a></li>
+          </ul>
+        </li>
+        <li class="treeview"><a href="#"><i class="fa fa-list-alt"></i>
+            <span>Daftar Produk</span>
+            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('')}}"><i class="fa fa-map-o"></i> Jasa</a></li>
+            <li><a href="{{url('')}}"><i class="fa fa-home"></i> Homestay</a></li>
+            <li><a href="{{url('')}}"><i class="fa fa-gift"></i> Barang</a></li>
           </ul>
         </li>
         <li class=""><a href="{{url('/tempat-wisata')}}"><i class="fa fa-map-marker"></i> 

@@ -8,15 +8,16 @@ class Pemandu extends Model
 {
     protected $table = 'pemandu';
 
+    protected $primaryKey = 'pemandu_id';
+
     public $timestamp = true;
 
     protected $fillable = [
-        'id',
-        'username',
-        'name',
-        'password',
-        'email',
-        'no_telp',
-        'picture',
+        'nama_company',
+        'alamat',
+        'deskripsi',
+        'pemandu_status',
+        'pemandu_verifikasi',
     ];
+    
 }

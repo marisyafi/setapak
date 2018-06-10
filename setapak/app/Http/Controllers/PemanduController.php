@@ -96,8 +96,8 @@ class PemanduController extends Controller
         ->addColumn('action', function ($d) {
 		// 	// if(Auth::user()->role != "publik")
 			return 
-            '<a href="/pemandu/'.$d->id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> View</a>
-            <form action="/pemandu/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
+            '<a href="/pemandu/'.$d->pemandu_id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> View</a>
+            <form action="/pemandu/'.$d->pemandu_id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
                 <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
@@ -108,19 +108,19 @@ class PemanduController extends Controller
     }
 
     public function approvehtml($d){
-        if($d->status==0) 
+        if($d->pemandu_verifikasi==0) 
             return 
-            '<form action="/pemandustatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
+            '<form action="/pemandustatus/'.$d->pemandu_id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
                 <input type="hidden" name="_method" value="POST">
-                <input type="hidden" name="status" value="1">
+                <input type="hidden" name="pemandu_verifikasi" value="1">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
                 <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>
             </form>';
         else
              return
-            '<form action="/pemandustatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Unpublish ID ? Are you sure?")) { return true } else {return false };">
+            '<form action="/pemandustatus/'.$d->pemandu_id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Unpublish ID ? Are you sure?")) { return true } else {return false };">
                 <input type="hidden" name="_method" value="POST">
-                <input type="hidden" name="status" value="0">
+                <input type="hidden" name="pemandu_verifikasi" value="0">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
                 <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
             </form>';
@@ -130,11 +130,11 @@ class PemanduController extends Controller
     public function status(Request $request, $id) {
     
             $this->validate($request, [
-                'status' => 'required'
+                'pemandu_verifikasi' => 'required'
             ]);
     
             $pemandu = Pemandu::findOrFail($id);
-            $pemandu->status = $request->input("status");
+            $pemandu->pemandu_verifikasi = $request->input("pemandu_verifikasi");
             $pemandu->save();
     
             return redirect()->route('pemandu-wisata.index')->with('message', 'Memperbaharui status berhasil.');

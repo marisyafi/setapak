@@ -43,10 +43,10 @@
           <div class="small-box bg-red">
             <div class="inner">
               <h3>7</h3> 
-              <p>Informasi</p>
+              <p>Tempat Pariwisata</p>
             </div>
             <div class="icon">
-              <i class="fa fa-table"></i>
+              <i class="ion ion-ios-location"></i>
             </div>
             <a href="{{ url('/informasis') }}" class="small-box-footer">
               More info <i class="fa fa-arrow-circle-right"></i>

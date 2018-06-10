@@ -24,7 +24,7 @@ Route::resource("tempat-wisata","TempatController");
 Route::get("/artikel-data","ArtikelController@dataArtikel");
 Route::get("/event-data","EventController@dataEvent");
 Route::get("/pemandu-data","PemanduController@dataPemandu");
-Route::post("/pemandustatus/{id?}","PemanduController@status");
+Route::post("/pemandustatus/{pemandu_id?}","PemanduController@status");
 Route::get("/pembayaran-data","PembayaranController@dataPembayaran");
 Route::post("/pembayaranstatus/{id?}","PembayaranController@status");
 

@@ -36,6 +36,7 @@
         </section>
     </div>
 @endsection
+
 @section('script')
 <script>
 // window.alert('yuhuuuu');
