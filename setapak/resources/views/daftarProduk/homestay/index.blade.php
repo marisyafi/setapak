@@ -5,24 +5,24 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Daftar Pemandu Wisata
+                Daftar Produk
+                <small>Homestay</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{url('/home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Daftar Pemandu Wisata</li>
+                <li class="active">Daftar Produk</li>
             </ol>
         </section>
-        
+
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
-                    <table class="table table-condensed table-striped" id="pemandu">
+                    <table class="table table-condensed table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>NAMA COMPANY</th>
+                                <th>NAMA HOMESTAY</th>
                                 <th>ALAMAT</th>
-                                <th>OPTION</th>
                             </tr>
                         </thead>
                     </table>                
@@ -31,21 +31,3 @@
         </section>
     </div>
 @endsection
-@section('script')
-<script>
-$(function () {
-  $("#pemandu").DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ url('/pemandu-data')}}",
-        columns: [
-            {data: 'pemandu_id', name: 'pemandu_id'},
-            {data: 'nama_company', name: 'nama_company'},
-            {data: 'alamat', name: 'alamat'},
-            {data: 'action', name: 'action'},
-        ],
-  });
-});
-</script>
-@endsection
-    <!-- /.content -->

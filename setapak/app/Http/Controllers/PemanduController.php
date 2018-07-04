@@ -10,6 +10,11 @@ use DB;
 
 class PemanduController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +55,7 @@ class PemanduController extends Controller
     public function show($id)
     {
         $pemandu = Pemandu::findOrFail($id);
-		return view('pemandu.show', compact('pemandu'));
+		return view('pemandu.detail', compact('pemandu'));
     }
 
     /**
@@ -96,8 +101,8 @@ class PemanduController extends Controller
         ->addColumn('action', function ($d) {
 		// 	// if(Auth::user()->role != "publik")
 			return 
-            '<a href="/pemandu/'.$d->pemandu_id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> View</a>
-            <form action="/pemandu/'.$d->pemandu_id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
+            '<a href="/pemandu-wisata/'.$d->pemandu_id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> Detail</a>
+            <form action="/pemandu-wisata/'.$d->pemandu_id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
                 <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>

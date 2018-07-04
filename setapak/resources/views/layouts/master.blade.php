@@ -23,9 +23,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('dist/css/skins/skin-blue.min.css')}}">
   <!-- REQUIRED JS SCRIPTS -->
   <!-- Nama -->
-  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css"> -->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
    <!-- DataTables -->
-  <link rel="stylesheet" href="{{ asset('datatables/dataTables.bootstrap.css')}}">
+  <!-- <link rel="stylesheet" href="{{ asset('datatables/dataTables.bootstrap.css')}}"> -->
   
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -116,8 +116,6 @@ desired effect
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       {{ csrf_field() }}
                     </form>
-
-                  <!-- <a href="{{ url('/logout') }}" class="btn btn-default btn-flat">Sign out</a> -->
                 </div>
               </li>
             </ul>
@@ -152,7 +150,7 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <!-- Optionally, you can add icons to the links -->
-        <li class=""><a href="{{ url('/home')}}"><i class="fa fa-dashboard"></i> 
+        <li><a href="{{ url('/home')}}"><i class="fa fa-dashboard"></i> 
             <span>Dashboard</span></a>
         </li>
         <li class="treeview"><a href="#"><i class="fa fa-pencil"></i>
@@ -163,25 +161,11 @@ desired effect
             <li><a href="{{url('/event')}}"><i class="fa fa-bullhorn"></i> Event</a></li>
           </ul>
         </li>
-        <li class="treeview"><a href="#"><i class="fa fa-check-circle-o"></i>
-            <span>Verification</span>
-            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('/pemandu-wisata')}}"><i class="fa fa-users"></i> Pemandu Wisata</a></li>
-            <li><a href="{{url('/pembayaran')}}"><i class="fa fa-credit-card"></i> Pembayaran</a></li>
-          </ul>
+        <li><a href="{{url('/pemandu-wisata')}}"><i class="fa fa-users"></i> 
+            <span>Pemandu Wisata</span></a>
         </li>
-        <li class="treeview"><a href="#"><i class="fa fa-list-alt"></i>
-            <span>Daftar Produk</span>
-            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
-          <ul class="treeview-menu">
-            <li><a href="{{url('')}}"><i class="fa fa-map-o"></i> Jasa</a></li>
-            <li><a href="{{url('')}}"><i class="fa fa-home"></i> Homestay</a></li>
-            <li><a href="{{url('')}}"><i class="fa fa-gift"></i> Barang</a></li>
-          </ul>
-        </li>
-        <li class=""><a href="{{url('/tempat-wisata')}}"><i class="fa fa-map-marker"></i> 
-            <span>Tempat Pariwisata</span></a>
+        <li><a href="{{url('/pembayaran')}}"><i class="fa fa-credit-card"></i> 
+            <span>Pembayaran</span></a>
         </li>
       </ul>
       <!-- /.sidebar-menu -->

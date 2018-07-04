@@ -20,6 +20,8 @@ Route::resource("event","EventController");
 Route::resource("pembayaran","PembayaranController");
 Route::resource("pemandu-wisata","PemanduController");
 Route::resource("tempat-wisata","TempatController");
+Route::resource("daftar-jasa","DaftarJasaController");
+Route::resource("daftar-homestay","DaftarHomestayController");
 
 Route::get("/artikel-data","ArtikelController@dataArtikel");
 Route::get("/event-data","EventController@dataEvent");
