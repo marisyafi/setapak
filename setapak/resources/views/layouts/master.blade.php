@@ -17,15 +17,17 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('bower_components/Ionicons/css/ionicons.min.css')}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
-  <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
-        page. However, you can choose any other skin. Make sure you
-        apply the skin class to the body tag so the changes take effect. -->
+  <!-- AdminLTE Skins -->
   <link rel="stylesheet" href="{{asset('dist/css/skins/skin-blue.min.css')}}">
   <!-- REQUIRED JS SCRIPTS -->
   <!-- Nama -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+ 
    <!-- DataTables -->
-  <!-- <link rel="stylesheet" href="{{ asset('datatables/dataTables.bootstrap.css')}}"> -->
+  <!-- <link rel="stylesheet" href="{{ asset('assets/plugins/datatables/dataTables.bootstrap.css')}}"> -->
+
+  <!-- DataTables -->
+  <!-- <link rel="stylesheet" href="{{asset('bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css')}}"> -->
   
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -199,6 +201,8 @@ desired effect
 <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- ChartJS -->
+<script src="{{asset('bower_components/chart.js/Chart.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('dist/js/adminlte.min.js')}}"></script>
 <!-- DataTables -->

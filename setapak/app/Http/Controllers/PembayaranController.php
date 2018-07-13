@@ -5,7 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
-use App\Pembayaran;
+use App\TransaksiJasa;
+use App\TransaksiHomestay;
+use App\TransaksiBarang;
+use App\UserWisatawan;
+use App\Jasa;
+use App\Homestay;
+use App\Barang;
+use App\Pemandu;
 use DB;
 
 class PembayaranController extends Controller
@@ -20,9 +27,15 @@ class PembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+     public function index()
     {
-        return view('pembayaran.index');
+        $jasa=TransaksiJasa::get();
+        $homestay=TransaksiHomestay::get();
+        $daftar=Homestay::get();
+        $barang=TransaksiBarang::get();
+        $user=UserWisatawan::get();
+        $pemandu=Pemandu::get();
+        return view('pembayaran.index', compact('jasa', 'homestay', 'daftar', 'barang', 'daftarBarang','user', 'pemandu'));
     }
 
     /**
@@ -54,8 +67,10 @@ class PembayaranController extends Controller
      */
     public function show($id)
     {
-        $pembayaran = Pembayaran::findOrFail($id);
-		return view('pembayaran.show', compact('pembayaran'));
+        $jasa = TransaksiJasa::findOrFail($id);
+        $homestay = TransaksiHomestay::findOrFail($id);
+        $barang = TransaksiBarang::findOrFail($id);
+		return view('pembayaran.show', compact('jasa', 'homestay', 'barang'));
     }
 
     /**
@@ -66,8 +81,8 @@ class PembayaranController extends Controller
      */
     public function edit($id)
     {
-       $pembayaran = Pembayaran::findOrFail($id);
-		return view('pembayaran.show', compact('pembayaran'));
+       $barang = TransaksiBarang::findOrFail($id);
+       return view('pembayaran.index', compact('barang'));
     }
 
     /**
@@ -77,67 +92,118 @@ class PembayaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $this->validate($request, [
+                'transaction_status' => 'required'
+        ]);
+
+        $jasa = TransaksiJasa::findOrFail($id);
+        $jasa->transaction_status = $request->input("transaction_status");
+        $jasa->save();
+        
+        
+        // $barang = TransaksiBarang::findOrFail($id);
+        // if($barang->transaction_status==0)
+        //     $barang->transaction_status = 1;
+        // else
+        //     $barang->transaction_status = 0;
+        // $barang->save();
+
+        return redirect()->route('pembayaran.index');
     }
 
     public function destroy($id)
 	{
-		$pembayaran = Pembayaran::findOrFail($id);
-		$pembayaran->delete();
-
+		$jasa = TransaksiJasa::findOrFail($id);
+        $jasa->delete();
+        $homestay = TransaksiHomestay::findOrFail($id);
+        $homestay->delete();
+        $barang = TransaksiBarang::findOrFail($id);
+        $barang->delete();
 		return redirect()->route('pembayaran.index')->with('message2', 'Item deleted successfully.');
-	}
-
-
-    public function dataPembayaran(){		
-
-		return Datatables::queryBuilder(DB::table('pembayaran'))
-        ->addColumn('action', function ($d) {
-		// 	// if(Auth::user()->role != "publik")
-			return 
-            '<a href="/pembayaran/'.$d->id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> View</a>
-            <form action="/pembayaran/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="'.csrf_token().'">
-                <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
-            </form>
-		 '.$this->approvehtml($d).'';
-        })
-		->make(true);
     }
 
-   	public function approvehtml($d){
-        if($d->status==0) 
-            return 
-            '<form action="/pembayaranstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
-                <input type="hidden" name="_method" value="POST">
-                <input type="hidden" name="status" value="1">
-                <input type="hidden" name="_token" value="'.csrf_token().'">
-                <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>
-            </form>';
-        else
-             return
-            '<form action="/pembayaranstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Unpublish ID ? Are you sure?")) { return true } else {return false };">
-                <input type="hidden" name="_method" value="POST">
-                <input type="hidden" name="status" value="0">
-                <input type="hidden" name="_token" value="'.csrf_token().'">
-                <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
-            </form>';
+    public function destroyJasa($id)
+	{
+        $jasa = TransaksiJasa::findOrFail($id);
+        $jasa->delete();
+
+		return redirect()->route('pembayaran.index');
+    }
+
+    public function destroyHome($id)
+	{
+        $homestay = TransaksiHomestay::findOrFail($id);
+        $homestay->delete();
+
+		return redirect()->route('pembayaran.index');
+    }
+
+    public function destroyBarang($id)
+	{
+        $barang = TransaksiBarang::findOrFail($id);
+        $barang->delete();
+
+		return redirect()->route('pembayaran.index');
+    }
+
+   	// public function approvehtml($d){
+        // if($d->status==0) 
+        //     return 
+        //     '<form action="/pembayaranstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
+        //         <input type="hidden" name="_method" value="POST">
+        //         <input type="hidden" name="status" value="1">
+        //         <input type="hidden" name="_token" value="'.csrf_token().'">
+        //         <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>
+        //     </form>';
+        // else
+        //      return
+        //     '<form action="/pembayaranstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Unpublish ID ? Are you sure?")) { return true } else {return false };">
+        //         <input type="hidden" name="_method" value="POST">
+        //         <input type="hidden" name="status" value="0">
+        //         <input type="hidden" name="_token" value="'.csrf_token().'">
+        //         <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
+        //     </form>';
         
-    }
+    // }
     
-    public function status(Request $request, $id) {
+    public function statusJasa(Request $request, $id) {
     
             $this->validate($request, [
-                'status' => 'required'
+                'transaction_status' => 'required'
             ]);
+            
+            $jasa = TransaksiJasa::findOrFail($id);
+            $jasa->transaction_status = $request->input("transaction_status");
+            $jasa->save();
+
+            return redirect()->route('pembayaran.index')->with('message', 'Memperbaharui status berhasil.');
+    }
+
+    public function statusHomestay(Request $request, $id) {
     
-            $pembayaran = Pembayaran::findOrFail($id);
-            $pembayaran->status = $request->input("status");
-            $pembayaran->save();
+            $this->validate($request, [
+                'transaction_status' => 'required'
+            ]);
+            
+            $homestay = TransaksiHomestay::findOrFail($id);
+            $homestay->transaction_status = $request->input("transaction_status");
+            $homestay->save();
+
+            return redirect()->route('pembayaran.index')->with('message', 'Memperbaharui status berhasil.');
+    }
+
+    public function statusBarang(Request $request, $id) {
     
+            $this->validate($request, [
+                'transaction_status' => 'required'
+            ]);
+            
+            $barang = TransaksiBarang::findOrFail($id);
+            $barang->transaction_status = $request->input("transaction_status");
+            $barang->save();
+
             return redirect()->route('pembayaran.index')->with('message', 'Memperbaharui status berhasil.');
     }
 	

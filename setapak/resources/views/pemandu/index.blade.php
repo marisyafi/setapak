@@ -19,9 +19,10 @@
                     <table class="table table-condensed table-striped" id="pemandu">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>NO</th>
                                 <th>NAMA COMPANY</th>
                                 <th>ALAMAT</th>
+                                <th>STATUS</th>
                                 <th>OPTION</th>
                             </tr>
                         </thead>
@@ -42,6 +43,7 @@ $(function () {
             {data: 'pemandu_id', name: 'pemandu_id'},
             {data: 'nama_company', name: 'nama_company'},
             {data: 'alamat', name: 'alamat'},
+            {data: 'pemandu_verifikasi', name: 'pemandu_verifikasi'},
             {data: 'action', name: 'action'},
         ],
   });

@@ -6,8 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "consoletvs/charts": "6.*",
         "cviebrock/eloquent-sluggable": "4.3",
         "fideloper/proxy": "~3.3",
+        "fx3costa/laravelchartjs": "^2.5",
+        "laracasts/flash": "^3.0",
         "laravel/framework": "5.5.*",
         "laravel/tinker": "~1.0",
         "uxweb/sweet-alert": "^1.4",

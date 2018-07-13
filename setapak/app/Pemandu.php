@@ -12,12 +12,10 @@ class Pemandu extends Model
 
     public $timestamp = true;
 
-    protected $fillable = [
-        'nama_company',
-        'alamat',
-        'deskripsi',
-        'pemandu_status',
-        'pemandu_verifikasi',
-    ];
+    protected $fillable = ['pemandu_id', 'nama_company', 'alamat', 'deskripsi', 'pemandu_status', 'pemandu_verifikasi' ];
+
+    public function jasa(){
+        return $this->hasMany('App\TransaksiJasa', 'pemandu_id', 'pemandu_id');
+    }
     
 }

@@ -19,16 +19,19 @@ Route::resource("artikels","ArtikelController");
 Route::resource("event","EventController");
 Route::resource("pembayaran","PembayaranController");
 Route::resource("pemandu-wisata","PemanduController");
-Route::resource("tempat-wisata","TempatController");
-Route::resource("daftar-jasa","DaftarJasaController");
-Route::resource("daftar-homestay","DaftarHomestayController");
 
 Route::get("/artikel-data","ArtikelController@dataArtikel");
 Route::get("/event-data","EventController@dataEvent");
 Route::get("/pemandu-data","PemanduController@dataPemandu");
 Route::post("/pemandustatus/{pemandu_id?}","PemanduController@status");
 Route::get("/pembayaran-data","PembayaranController@dataPembayaran");
-Route::post("/pembayaranstatus/{id?}","PembayaranController@status");
+Route::post("/pembayaranstatus/{id}","PembayaranController@status");
+Route::post("/jasa-status/{id?}","PembayaranController@statusJasa");
+Route::post("/homestay-status/{id?}","PembayaranController@statusHomestay");
+Route::post("/barang-status/{id?}","PembayaranController@statusBarang");
+Route::get("/jasa-hapus/{id?}","PembayaranController@destroyJasa");
+Route::get("/home-hapus/{id?}","PembayaranController@destroyHome");
+Route::get("/barang-hapus/{id?}","PembayaranController@destroyBarang");
 
 Auth::routes();
 

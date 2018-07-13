@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use App\Pemandu;
+use App\Jasa;
+use App\Homestay;
+use App\Barang;
 use DB;
 
 class PemanduController extends Controller
@@ -22,7 +25,8 @@ class PemanduController extends Controller
      */
     public function index()
     {
-        return view('pemandu.index');
+        $pemandu = Pemandu::get();
+        return view('pemandu.index', compact('pemandu'));
     }
 
     /**
@@ -55,7 +59,10 @@ class PemanduController extends Controller
     public function show($id)
     {
         $pemandu = Pemandu::findOrFail($id);
-		return view('pemandu.detail', compact('pemandu'));
+        $jasa = Jasa::where('pemandu_id', $id)->get();
+        $homestay = Homestay::where('pemandu_id', $id)->get();
+        $barang = Barang::where('pemandu_id', $id)->get();
+		return view('pemandu.detail', compact('pemandu', 'jasa', 'homestay', 'barang'));
     }
 
     /**
@@ -98,6 +105,15 @@ class PemanduController extends Controller
     public function dataPemandu(){		
 
 		return Datatables::queryBuilder(DB::table('pemandu'))
+        ->editColumn('pemandu_verifikasi', function ($status) {
+            if($status->pemandu_verifikasi==0)
+                return 
+                $status->pemandu_verifikasi = "Unverified";
+            else 
+                return
+                $status->pemandu_verifikasi = "Verified";
+            })
+
         ->addColumn('action', function ($d) {
 		// 	// if(Auth::user()->role != "publik")
 			return 
@@ -119,7 +135,7 @@ class PemanduController extends Controller
                 <input type="hidden" name="_method" value="POST">
                 <input type="hidden" name="pemandu_verifikasi" value="1">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
-                <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>
+                <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
             </form>';
         else
              return
@@ -127,7 +143,7 @@ class PemanduController extends Controller
                 <input type="hidden" name="_method" value="POST">
                 <input type="hidden" name="pemandu_verifikasi" value="0">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
-                <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
+                <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>
             </form>';
         
     }

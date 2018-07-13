@@ -4,13 +4,14 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Artikel
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="{{url('/home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Artikel</li>
-            </ol>
+            <div>
+                <h1>
+                    Artikel
+                    <div class="box-tools pull-right">
+                        <a class="btn btn-success" href="{{ route('artikels.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
+                    </div>
+                </h1>
+            </div>  
         </section>
         
         <section class="content">
@@ -18,10 +19,6 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                        
-                            <div class="box-tools pull-right">
-                                <a class="btn-sm btn-success" href="{{ route('artikels.create') }}"><i class="glyphicon glyphicon-plus"></i> Create</a>
-                            </div>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
