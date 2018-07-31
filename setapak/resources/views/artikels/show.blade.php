@@ -6,24 +6,20 @@
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1>
-                Artikel
-                <small>View</small>
-            </h1>
-            <ol class="breadcrumb">
-                <li><a href="{{url('/home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li><a href="{{url('/artikels')}}"><i class="fa fa-dashboard"></i> Artikel</a></li>
-                <li  class="active">View</li>
-            </ol>
+            <div>
+                <h1>
+                    Artikel
 
-            <form action="{{ route('artikels.destroy', $artikel->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                <div class="btn-group pull-right" role="group" aria-label="...">
-                    <a class="btn btn-warning btn-group" role="group" href="{{ route('artikels.edit', $artikel->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
-                    <button type="submit" class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></button>
-                </div>
-            </form>
+                    <form action="{{ route('artikels.destroy', $artikel->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="btn-group pull-right" role="group" aria-label="...">
+                            <a class="btn btn-warning btn-group" role="group" href="{{ route('artikels.edit', $artikel->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
+                            <button type="submit" class="btn btn-danger">Delete <i class="glyphicon glyphicon-trash"></i></button>
+                        </div>
+                    </form> 
+                </h1>
+            </div>
         </section>
 
         <section class="content">
@@ -31,36 +27,31 @@
                 <div class="col-md-12">
                     <form action="#">
                         <div class="form-group">
-                            <label for="nome">ID</label>
-                            <p class="form-control-static">{{$artikel->id}}</p>
+                            <h4 for="title"><strong>TITLE</strong></h4>
+                            <h5 class="form-control-static">{{$artikel->title}}</h5>
                         </div>
 
                         <div class="form-group">
-                            <label for="title">TITLE</label>
-                            <p class="form-control-static">{{$artikel->title}}</p>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="user">USER</label>
-                            <p class="form-control-static">Admin</p>
+                            <h4 for="user"><strong>USER</strong></h4>
+                            <h5 class="form-control-static">Admin</h5>
                         </div>
                         
                         <div class="form-group">
-                            <label for="user">TANGGAL TERBIT</label>
-                            <p class="form-control-static">{{date('j F Y', strtotime($artikel->tanggal))}}</p>
+                            <h4 for="user"><strong>TANGGAL TERBIT</strong></h4>
+                            <h5 class="form-control-static">{{date('j F Y', strtotime($artikel->tanggal))}}</h5>
                         </div>
 
                         <div class="form-group">
-                            <label for="description">DESCRIPTION</label>
-                            <p class="form-control-static">{!!$artikel->description!!}</p>
+                            <h4 for="description"><strong>DESCRIPTION</strong></h4>
+                            <h5 class="form-control-static">{!!$artikel->description!!}</h5>
                         </div>
 
                         <div class="form-group">
-                            <label for="picture">PICTURE</label>
+                            <h4 for="picture"><strong>PICTURE</strong></h4>
                             @if($artikel['picture'] != null)
-                             <img width="100" height="100" src="{{ asset($artikel->picture) }}" class="img-responsive"/>
+                             <img width="250" height="250" src="{{ asset($artikel->picture) }}" class="img-responsive"/>
                             @else
-                             <img width="100" height="100" src="{{ asset("/upload/images/profil/noimage.png") }}" class="img-responsive">
+                             <img width="250" height="250" src="{{ asset("/upload/images/profil/noimage.png") }}" class="img-responsive">
                             @endif
                         </div>
                     </form>

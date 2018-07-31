@@ -41,26 +41,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -84,19 +65,37 @@ desired effect
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+          {{-- <!-- Notifications: style can be found in dropdown.less -->
+          <li class="dropdown notifications-menu">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              <i class="fa fa-bell-o"></i>
+              <span class="label label-warning">N</span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="header">You have new notifications</li>
+              <li>
+                <!-- inner menu: contains the actual data -->
+                <ul class="menu">
+                  
+                </ul>
+              </li>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul>
+          </li> --}}
+          
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
-              <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="user-image" alt="User Image">
+              <img src="{{asset('dist/img/avatar3.png')}}" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">Admin</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
               <li class="user-header">
-                <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+                <img src="{{asset('dist/img/avatar3.png')}}" class="img-circle" alt="User Image">
 
                 <p>
                   Admin
@@ -106,9 +105,9 @@ desired effect
               
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
+                {{-- <div class="pull-left">
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
+                </div> --}}
                 <div class="pull-right">
                   <a href="{{ route('logout') }}" class="btn btn-default btn-flat"
                     onclick="event.preventDefault(); 
@@ -139,12 +138,12 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="{{asset('dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
+          <img src="{{asset('dist/img/avatar3.png')}}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Alexander Pierce</p>
+          <p>Admin</p>
           <!-- Status -->
-          <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          <a><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
 
@@ -168,6 +167,14 @@ desired effect
         </li>
         <li><a href="{{url('/pembayaran')}}"><i class="fa fa-credit-card"></i> 
             <span>Pembayaran</span></a>
+        </li>
+        <li class="treeview"><a href="#"><i class="fa fa-gears"></i>
+            <span>Setting</span>
+            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+          <ul class="treeview-menu">
+            <li><a href="{{url('bank')}}"><i class="fa fa-bank"></i> Bank</a></li>
+            <li><a href="{{url('lokasi')}}"><i class="fa fa-map-marker"></i> Lokasi</a></li>
+          </ul>
         </li>
       </ul>
       <!-- /.sidebar-menu -->

@@ -43,17 +43,17 @@
                                         @foreach($jasa as $jas)
                                         <tr>
                                             <td>{{$jas->transaction_id}}</td>
-                                            <td>{{$jas->user['nama']}}</td>
+                                            <td>{{$jas->user->nama}}</td>
                                             <td>{{$jas->transaction_date}}</td>
-                                            <td>{{$jas->total_harga}}</td>
+                                            <td><p class="pull-right">Rp. {{$jas->total_harga}}</p></td>
                                             <td style="min-width: 50px">
                                                 <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-default" data-jasa="{{$jas, $jas->pemandu->nama_company}}"><i class="glyphicon glyphicon-eye-open"></i> View</button>
                                                 {{-- <a href="{{ route('pembayaran.show', $jas->transaction_id)}}" type="button" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-eye-open"></i> View</a> --}}
-                                                <form action="{{ url('/jasa-hapus', $jas->transaction_id)}}" method="GET" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
+                                                {{-- <form action="{{ url('/jasa-hapus', $jas->transaction_id)}}" method="GET" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="'.csrf_token().'">
                                                     <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
-                                                </form>
+                                                </form> --}}
                                                 @if ($jas->transaction_status==0) 
                                                     <form action="{{ url('/jasa-status', $jas->transaction_id)}}" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
                                                         {{ csrf_field() }}
@@ -86,7 +86,6 @@
                                                 <th>NO. ORDER</th>
                                                 <th>NAMA</th>
                                                 <th>NAMA HOMESTAY</th>
-                                                <th>TANGGAL CHECK IN</th>
                                                 <th>TANGGAL PEMBAYARAN</th>
                                                 <th>TOTAL HARGA</th>
                                                 <th>OPTION</th>
@@ -98,16 +97,15 @@
                                             <td>{{$home->transaction_id}}</td>
                                             <td>{{$home->user->nama}}</td>
                                             <td>{{$home->daftar->nama_homestay}}</td>
-                                            <td>{{$home->check_in}}</td>
                                             <td>{{$home->transaction_date}}</td>
-                                            <td>{{$home->total_harga}}</td>
+                                            <td><p class="pull-right">Rp. {{$home->total_harga}}</p></td>
                                             <td style="min-width: 50px">
-                                            <button type="button" id="modal-jasa" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-default"><i class="glyphicon glyphicon-eye-open"></i> View</button>
-                                                <form action="{{ url('/home-hapus', $home->transaction_id)}}" method="GET" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
+                                                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-homestay" data-home="{{$home}}"><i class="glyphicon glyphicon-eye-open"></i> View</button>
+                                                {{-- <form action="{{ url('/home-hapus', $home->transaction_id)}}" method="GET" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="'.csrf_token().'">
                                                     <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
-                                                </form>
+                                                </form> --}}
                                                 @if ($home->transaction_status==0) 
                                                     <form action="{{ url('/homestay-status', $home->transaction_id)}}" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
                                                         {{ csrf_field() }}
@@ -140,7 +138,6 @@
                                                 <th>NO. ORDER</th>
                                                 <th>NAMA</th>
                                                 <th>NAMA BARANG</th>
-                                                <th>HARGA</th>
                                                 <th>JUMLAH</th>
                                                 <th>TOTAL HARGA</th>
                                                 <th>TANGGAL PEMBAYARAN</th>
@@ -152,19 +149,17 @@
                                         <tr>
                                             <td>{{$bar->transaction_id}}</td>
                                             <td>{{$bar->user->nama}}</td>
-                                            {{-- {{dd($bar->daftarBarang)}} --}}
-                                            <td>{{$bar->daftarBarang['nama_barang']}}</td>
-                                            <td>{{$bar->daftarBarang['harga']}}</td>
+                                            <td>{{$bar->daftarBarang->nama_barang}}</td>
                                             <td>{{$bar->jumlah_barang}}</td>
-                                            <td>{{$bar->total_harga}}</td>
+                                            <td><p class="pull-right">Rp. {{$bar->total_harga}}</p></td>
                                             <td>{{$bar->transaction_date}}</td>
                                             <td style="min-width: 50px">
-                                                <button type="button" id="modal-jasa" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-default"><i class="glyphicon glyphicon-eye-open"></i> View</button>
-                                                <form action="{{ url('/barang-hapus', $bar->transaction_id)}}" method="GET" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
+                                                <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-barang" data-barang="{{$bar}}"><i class="glyphicon glyphicon-eye-open"></i> View</button>
+                                                {{-- <form action="{{ url('/barang-hapus', $bar->transaction_id)}}" method="GET" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <input type="hidden" name="_token" value="'.csrf_token().'">
                                                     <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
-                                                </form>
+                                                </form> --}}
                                                 @if ($bar->transaction_status==0) 
                                                     <form action="{{ url('/barang-status', $bar->transaction_id)}}" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
                                                         {{ csrf_field() }}
@@ -237,17 +232,51 @@ $(function () {
     var link = $(event.relatedTarget);
     var transaksiJasa = link.data('jasa');
     var modal = $(this);
-    console.log(transaksiJasa);
-    modal.find('#id').text(transaksiJasa["transaction_id"]);
+   
+    modal.find('#id').text("No. Order "+transaksiJasa["transaction_id"]+" ");
     modal.find('#tanggal_booking').text(transaksiJasa["tanggal_booking"]);
     modal.find('#transaction_date').text(transaksiJasa["transaction_date"]);
-    modal.find('#total_harga').text(transaksiJasa["total_harga"]);
-    modal.find('#bukti_pembayaran').text(transaksiJasa["photo_transfer"]);
+    modal.find('#total_harga').text("Rp. "+transaksiJasa["total_harga"]);
+    modal.find('#bukti_pembayaran').html('<img style="cursor:zoom-in" width="250" height="250" src="'+transaksiJasa["photo_transfer"]+'"  class="img-responsive">');
     modal.find('#user').text(transaksiJasa.user["nama"]);
     modal.find('#pemandu').text(transaksiJasa.pemandu["nama_company"]);
     // modal.find('#user').html(transaksiJasa.jasa["nama_jasa"]);
+    });
+
+
+    $('#modal-homestay').on('show.bs.modal', function (event) {
+    var link = $(event.relatedTarget);
+    var transaksiHomestay = link.data('home');
+    var modal = $(this);
    
-  });
+    modal.find('#id').text("No. Order "+transaksiHomestay["transaction_id"]);
+    modal.find('#tanggal_booking').text(transaksiHomestay["tanggal_booking"]);
+    modal.find('#transaction_date').text(transaksiHomestay["transaction_date"]);
+    modal.find('#check_in').text(transaksiHomestay["check_in"]);
+    modal.find('#check_out').text(transaksiHomestay["check_out"]);
+    modal.find('#total_harga').text("Rp. "+transaksiHomestay["total_harga"]);
+    modal.find('#bukti_pembayaran').html('<img width="250" height="250" src="'+transaksiHomestay["photo_transfer"]+'"  class="img-responsive"/>');
+    modal.find('#user').text(transaksiHomestay.user["nama"]);
+    modal.find('#nama_homestay').html(transaksiHomestay.daftar["nama_homestay"]);
+    });
+
+    $('#modal-barang').on('show.bs.modal', function (event) {
+    var link = $(event.relatedTarget);
+    var transaksiBarang = link.data('barang');
+    var modal = $(this);
+  
+    modal.find('#id').text("No. Order "+transaksiBarang["transaction_id"]);
+    modal.find('#tanggal_booking').text(transaksiBarang["tanggal_booking"]);
+    modal.find('#transaction_date').text(transaksiBarang["transaction_date"]);
+    modal.find('#total_harga').text("Rp. "+transaksiBarang["total_harga"]);
+    modal.find('#jumlah_barang').html(transaksiBarang["jumlah_barang"]);
+    modal.find('#ongkos_kirim').html("Rp. "+transaksiBarang["ongkos_kirim"]);
+    modal.find('#bukti_pembayaran').html('<img width="250" height="250" src="'+transaksiBarang["photo_transfer"]+'"  class="img-responsive"/>');
+    modal.find('#user').text(transaksiBarang.user["nama"]);
+    });
+
+
+  
 </script>
 @endsection
 <!-- /.content -->

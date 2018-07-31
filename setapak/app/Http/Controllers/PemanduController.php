@@ -99,7 +99,7 @@ class PemanduController extends Controller
         $pemandu = Pemandu::findOrFail($id);
 		$pemandu->delete();
 
-		return redirect()->route('pemandu.index')->with('message2', 'Item deleted successfully.');
+		return redirect()->route('pemandu-wisata.index')->with('message2', 'Item deleted successfully.');
     }
 
     public function dataPemandu(){		
@@ -129,11 +129,11 @@ class PemanduController extends Controller
     }
 
     public function approvehtml($d){
-        if($d->pemandu_verifikasi==0) 
+        if($d->pemandu_verifikasi==1) 
             return 
             '<form action="/pemandustatus/'.$d->pemandu_id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
                 <input type="hidden" name="_method" value="POST">
-                <input type="hidden" name="pemandu_verifikasi" value="1">
+                <input type="hidden" name="pemandu_verifikasi" value="0">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
                 <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
             </form>';
@@ -141,7 +141,7 @@ class PemanduController extends Controller
              return
             '<form action="/pemandustatus/'.$d->pemandu_id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Unpublish ID ? Are you sure?")) { return true } else {return false };">
                 <input type="hidden" name="_method" value="POST">
-                <input type="hidden" name="pemandu_verifikasi" value="0">
+                <input type="hidden" name="pemandu_verifikasi" value="1">
                 <input type="hidden" name="_token" value="'.csrf_token().'">
                 <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>
             </form>';

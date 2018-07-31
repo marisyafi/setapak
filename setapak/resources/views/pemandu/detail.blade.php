@@ -6,7 +6,6 @@
         <section class="content-header">
             <h1>
                 Daftar Pemandu Wisata
-                <small>Verifikasi</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="{{url('/home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -22,38 +21,38 @@
                         <!-- Custom Tabs -->
                         <div class="nav-tabs-custom">
                             <ul class="nav nav-tabs">
-                                <li class="active"><a href="#tab_1" data-toggle="tab">Profile</a></li>
-                                <li><a href="#tab_2" data-toggle="tab">Jasa</a></li>
-                                <li><a href="#tab_3" data-toggle="tab">Homestay</a></li>
-                                <li><a href="#tab_4" data-toggle="tab">Produk</a></li>
+                                <li class="active"><a href="#tab_1" data-toggle="tab"><h4><strong>Profile</strong></h4></a></li>
+                                <li><a href="#tab_2" data-toggle="tab"><h4>Jasa</h4></a></li>
+                                <li><a href="#tab_3" data-toggle="tab"><h4>Homestay</h4></a></li>
+                                <li><a href="#tab_4" data-toggle="tab"><h4>Produk</h4></a></li>
                                 <li class="pull-right"><a class="btn btn-link" href="{{ route('pemandu-wisata.index') }}"><i class="glyphicon glyphicon-backward"></i> Back</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" id="tab_1">
                                     <table class="table">
                                         <tr>
-                                            <td class="col-md-4"><h5><strong>Nama Company</strong></h5></td>
-                                            <td class="col-md-8"><h5><strong>{{$pemandu->nama_company}}</strong></h5></td>
+                                            <td class="col-md-3"><h5>Nama Company</h5></td>
+                                            <td class="col-md-9"><h5>{{$pemandu->nama_company}}</h5></td>
                                         </tr>
                                         <tr>
-                                            <td class="col-md-4"><h5>Nama User</h5></td>
-                                            <td class="col-md-8"><h5>Charlie</h5></td>
+                                            <td class="col-md-3"><h5>Nama User</h5></td>
+                                            <td class="col-md-9"><h5>Charlie</h5></td>
                                         </tr>
                                         <tr>
-                                            <td class="col-md-4"><h5>Alamat</h5></td>
-                                            <td class="col-md-8"><h5>{{$pemandu->alamat}}</h5></td>
+                                            <td class="col-md-3"><h5>Alamat</h5></td>
+                                            <td class="col-md-9"><h5>{{$pemandu->alamat}}</h5></td>
                                         </tr>
                                         <tr>
-                                            <td class="col-md-4"><h5>Deskripsi</h5></td>
-                                            <td class="col-md-8"><h5>{{$pemandu->deskripsi}}</h5></td>
+                                            <td class="col-md-3"><h5>Deskripsi</h5></td>
+                                            <td class="col-md-9"><h5>{{$pemandu->deskripsi}}</h5></td>
                                         </tr>
                                         <tr>
-                                            <td class="col-md-4"><h5>Status</h5></td>
-                                            <td class="col-md-8">
+                                            <td class="col-md-3"><h5>Status</h5></td>
+                                            <td class="col-md-9">
                                                 @if($pemandu->pemandu_verifikasi==0)
-                                                    <h6>Unverified</h6>
+                                                    <h5>Unverified</h5>
                                                 @else 
-                                                    <h6>Verified</h6> 
+                                                    <h5>Verified</h5> 
                                                 @endif      
                                             </td>
                                         </tr>
@@ -79,21 +78,17 @@
                                                     <th>NAMA</th>
                                                     <th>DESKRIPSI</th>
                                                     <th>LOKASI</th>
-                                                    <th>HARGA</th>
-                                                    <th>OPTION</th>
+                                                    <th>HARGA</th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            @foreach($jasa as $jas)
+                                            @foreach($jasa as $key => $jas)
                                             <tr>
-                                                <td>{{$jas->jasa_id}}</td>
+                                                <td>{{++$key}}</td>
                                                 <td>{{$jas->nama_jasa}}</td>
-                                                <td>{{$jas->deskripsi}}</td>
+                                                <td >{{$jas->deskripsi}}</td>
                                                 <td>{{$jas->lokasi_wisata}}</td>
-                                                <td>{{$jas->harga_jasa}}</td>
-                                                <td style="min-width: 50px">
-                                                    
-                                                </td>
+                                                <td><p class="pull-right">Rp. {{$jas->harga_jasa}}</p></td>
                                             </tr>
                                             @endforeach
                                             </tbody>
@@ -107,20 +102,16 @@
                                                 <th>NO</th>
                                                 <th>NAMA HOMESTAY</th>
                                                 <th>ALAMAT</th>
-                                                <th>HARGA</th>
-                                                <th>OPTION</th>
+                                                <th>HARGA</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($homestay as $home)
+                                            @foreach($homestay as $key =>$home)
                                             <tr>
-                                                <td>{{$home->homestay_id}}</td>
+                                                <td>{{++$key}}</td>
                                                 <td>{{$home->nama_homestay}}</td>
                                                 <td>{{$home->alamat}}</td>
-                                                <td>{{$home->harga_perhari}}</td>
-                                                <td style="min-width: 50px">
-                                                    
-                                                </td>
+                                                <td><p class="pull-right">Rp. {{$home->harga_perhari}}</p></td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -135,21 +126,17 @@
                                                 <th>NAMA</th>
                                                 <th>DESKRIPSI</th>
                                                 <th>HARGA</th>
-                                                <th>JUMLAH</th>
-                                                <th>OPTION</th>
+                                                <th>JUMLAH</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach($barang as $bar)
+                                            @foreach($barang as $key => $bar)
                                             <tr>
-                                                <td>{{$bar->barang_id}}</td>
+                                                <td>{{++$key}}</td>
                                                 <td>{{$bar->nama_barang}}</td>
                                                 <td>{{$bar->deskripsi}}</td>
-                                                <td>{{$bar->harga}}</td>
+                                                <td><p class="pull-right">Rp. {{$bar->harga}}</p></td>
                                                 <td>{{$bar->kuantitas}}</td>
-                                                <td style="min-width: 50px">
-                                                    
-                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>

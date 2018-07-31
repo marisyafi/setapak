@@ -55,7 +55,8 @@ class EventController extends Controller
         $event->user = "Admin";
         $event->description = $request->input("description");
         $event->picture = $request->input("picture");
-		$event->tanggal = $request->input("tanggal");
+        $event->tanggal = $request->input("tanggal");
+        $event->status = 0;
 		
 		if ($request->hasFile('picture')) {
 			$imageTempName = $request->file('picture')->getPathname();
@@ -167,11 +168,44 @@ class EventController extends Controller
             <input type="hidden" name="_token" value="'.csrf_token().'">
             <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
         </form>
-		 '.'';
+		 '.$this->approvehtml($d).'';
 		// else 
 			// return 
 			// '<a href="/event/'.$d->id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> View</a>';		
         })
 		->make(true);
+    }
+
+    public function approvehtml($d){
+        if($d->status==1) 
+            return 
+            '<form action="/eventstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
+                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" name="status" value="0">
+                <input type="hidden" name="_token" value="'.csrf_token().'">
+                <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
+            </form>';
+        else
+             return
+            '<form action="/eventstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Unpublish ID ? Are you sure?")) { return true } else {return false };">
+                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" name="status" value="1">
+                <input type="hidden" name="_token" value="'.csrf_token().'">
+                <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Publish</button>
+            </form>';
+        
+    }
+
+    public function status(Request $request, $id) {
+    
+            $this->validate($request, [
+                'status' => 'required'
+            ]);
+    
+            $event = Event::findOrFail($id);
+            $event->status = $request->input("status");
+            $event->save();
+    
+            return redirect()->route('event.index')->with('message', 'Memperbaharui status berhasil.');
     }
 }

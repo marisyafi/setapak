@@ -4,33 +4,31 @@
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title"><strong id="id"></strong></h4>
                     <h4 class="modal-title" id="user"></h4>
                 </div>
                 <div class="modal-body">
                     <table class="table">
                         <tr>
                             <td class="col-md-4"><h5>Tanggal Pembayaran</h5></td>
-                            <td class="col-md-8" id="transaction_date" value=""><h6><strong></strong></h6></td>
+                            <td class="col-md-8"><h5 id="transaction_date"> </h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Tanggal Booking</h5></td>
-                            <td class="col-md-8" id="tanggal_booking"><h6></h6></td>
+                            <td class="col-md-8"><h5 id="tanggal_booking"></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Total Harga</h5></td>
-                            <td class="col-md-8" id="total_harga"><h6></h6></td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4"><h5>Kegiatan</h5></td>
-                            <td class="col-md-8" id="nama_jasa"><h6></h6></td>
+                            <td class="col-md-8"><h5 id="total_harga"></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Pemandu</h5></td>
-                            <td class="col-md-8" id="pemandu"><h6></h6></td>
+                            <td class="col-md-8" ><h5 id="pemandu"></h5></td>
                         </tr>
                         <tr>
                             <td><h5 for="picture">Bukti Pembayaran</h5></td>
-                                <img width="100" height="100" id="bukti_pembayaran" class="img-responsive"/>
+                            <td class="col-md-8" id="bukti_pembayaran"></td>
+                                
                         </tr>
                                       
                     </table>
@@ -45,38 +43,40 @@
     </div>
     <!-- /.modal -->
 
-    <div class="modal-homestay modal fade" id="modal-default">
+    <div class="modal fade" id="modal-homestay">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><strong>$homestay->transaction_id Charlie</strong></h4>
+                    <h4 class="modal-title"><strong id="id"></strong></h4>
+                    <h4 class="modal-title" id="user"></h4>
                 </div>
                 <div class="modal-body">
                     <table class="table">
                         <tr>
-                            <td class="col-md-4"><h5><strong>Tanggal Pembayaran</strong></h5></td>
-                            <td class="col-md-8"><h6><strong>$homestay->transaction_date</strong></h6></td>
+                            <td class="col-md-4"><h5>Tanggal Pembayaran</h5></td>
+                            <td class="col-md-8"><h5 id="transaction_date"></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Homestay</h5></td>
-                            <td class="col-md-8"><h6>nama homestay</h6></td>
+                            <td class="col-md-8"><h5 id="nama_homestay"></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Tanggal Masuk</h5></td>
-                            <td class="col-md-8"><h6>$homestay->check_in</h6></td>
+                            <td class="col-md-8"><h5 id="check_in"></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Tanggal Keluar</h5></td>
-                            <td class="col-md-8"><h6>$homestay->check_out</h6></td>
+                            <td class="col-md-8"><h5 id="check_out"></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Total Harga</h5></td>
-                            <td class="col-md-8"><h6>$homestay->total_harga</h6></td>
+                            <td class="col-md-8"><h5 id="total_harga"></h5></td>
                         </tr>
                         <tr>
-                            <td><h5 for="picture"><strong>Bukti Pembayaran</strong></h5></td>
+                            <td><h5 for="picture">Bukti Pembayaran</h5></td>
+                            <td class="col-md-8" id="bukti_pembayaran"></td>
                         </tr>
                     </table>
                 </div>
@@ -91,38 +91,40 @@
     <!-- /.modal -->
 
 
-    <div class="modal-barang modal fade" id="modal-default">
+    <div class="modal fade" id="modal-barang">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title"><strong>$barang->transaction_id Charlie</strong></h4>
+                    <h4 class="modal-title"><strong id="id"></strong></h4>
+                    <h4 class="modal-title" id="user"></h4>
                 </div>
                 <div class="modal-body">
                     <table class="table">
                         <tr>
-                            <td class="col-md-4"><h5><strong>Tanggal Pembayaran</strong></h5></td>
-                            <td class="col-md-8"><h6><strong>$barang->transaction_date</strong></h6></td>
-                        </tr>
-                        <tr>
-                            <td class="col-md-4"><h5>Total Harga</h5></td>
-                            <td class="col-md-8"><h6>$barang->total_harga</h6></td>
+                            <td class="col-md-4"><h5>Tanggal Pembayaran</h5></td>
+                            <td class="col-md-8" id="transaction_date"><h5></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Nama Barang</h5></td>
-                            <td class="col-md-8"><h6>Masker</h6></h6></td>
+                            <td class="col-md-8"><h5>Masker</h5></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Jumlah Barang</h5></td>
-                            <td class="col-md-8"><h6>$barang->jumlah_barang</h6></td>
+                            <td class="col-md-8" id="jumlah_barang"><h5></h5></td>
                         </tr>
                         <tr>
                             <td class="col-md-4"><h5>Ongkos Kirim</h5></td>
-                            <td class="col-md-8"><h6>$barang->ongkos_kirim</h6></td>
+                            <td class="col-md-8" id="ongkos_kirim"><h5></h5></td>
                         </tr>
                         <tr>
-                            <td><h5 for="picture"><strong>Bukti Pembayaran</strong></h5></td>
+                            <td class="col-md-4"><h5>Total Harga</h5></td>
+                            <td class="col-md-8" id="total_harga"><h5></h5></td>
+                        </tr>
+                        <tr>
+                            <td><h5 for="picture">Bukti Pembayaran</h5></td>
+                            <td class="col-md-8" id="bukti_pembayaran"></td>
                         </tr>      
                     </table>
                 </div>

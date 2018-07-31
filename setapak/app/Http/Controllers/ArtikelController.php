@@ -22,7 +22,6 @@ class ArtikelController extends Controller
      */
     public function index()
     {
-        //
         return view('artikels.index');
     }
 
@@ -46,8 +45,7 @@ class ArtikelController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'description' => 'required',
-            'tanggal'=>'required',            
+            'description' => 'required',          
 			'picture' => 'mimes:jpg,jpeg,png',                     
         ]);
 
@@ -57,7 +55,8 @@ class ArtikelController extends Controller
         $artikel->user = "Admin";
         $artikel->description = $request->input("description");
         $artikel->picture = $request->input("picture");
-		$artikel->tanggal = $request->input("tanggal");
+        $artikel->tanggal = $request->input("tanggal");        
+        $artikel->status = 0;
 		
 		if ($request->hasFile('picture')) {
 			$imageTempName = $request->file('picture')->getPathname();
@@ -68,7 +67,7 @@ class ArtikelController extends Controller
 		}
 		$artikel->save();
 
-		return redirect()->route('artikels.index')->with('message2', 'Item created successfully.');
+		return redirect()->route('artikels.index');
     }
 
     /**
@@ -169,11 +168,44 @@ class ArtikelController extends Controller
                 <input type="hidden" name="_token" value="'.csrf_token().'">
                 <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
             </form>
-		 '.'';
+		 '.$this->approvehtml($d).'';
 		// else 
 			// return 
 			// '<a href="/artikels/'.$d->id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> View</a>';		
         })
 		->make(true);
+    }
+
+    public function approvehtml($d){
+        if($d->status==1) 
+            return 
+            '<form action="/artikelstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
+                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" name="status" value="0">
+                <input type="hidden" name="_token" value="'.csrf_token().'">
+                <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
+            </form>';
+        else
+             return
+            '<form action="/artikelstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Unpublish ID ? Are you sure?")) { return true } else {return false };">
+                <input type="hidden" name="_method" value="POST">
+                <input type="hidden" name="status" value="1">
+                <input type="hidden" name="_token" value="'.csrf_token().'">
+                <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Publish</button>
+            </form>';
+        
+    }
+
+    public function status(Request $request, $id) {
+    
+            $this->validate($request, [
+                'status' => 'required'
+            ]);
+    
+            $artikel = Artikel::findOrFail($id);
+            $artikel->status = $request->input("status");
+            $artikel->save();
+    
+            return redirect()->route('artikels.index')->with('message', 'Memperbaharui status berhasil.');
     }
 }

@@ -13,15 +13,7 @@ class Artikel extends Model
 
     public $timestamp = true;
 
-    protected $fillable = [
-        'id',
-        'title',
-        'description',
-        'tanggal',
-        'user',
-        'picture',
-        'slug'
-    ];
+    protected $fillable = ['id', 'title', 'description', 'user', 'picture', 'slug'];
 
     public function sluggable()
     {

@@ -7,6 +7,7 @@ use App\TransaksiJasa;
 use App\TransaksiHomestay;
 use App\TransaksiBarang;
 use App\Pemandu;
+use App\Jasa;
 
 use DB;
 
@@ -29,6 +30,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $counterJasa = DB::table('jasa')->count();
+        $counterHomestay = DB::table('homestay')->count();
+        $counterBarang = DB::table('barang')->count();
+        $counterPemandu = DB::table('pemandu')->count();
+        
         //line chart
         $data = array();
         $jasa = TransaksiJasa::get();
@@ -66,7 +72,7 @@ class HomeController extends Controller
                 $bulan2 = "Desember";
             }
             $counter_jasa = TransaksiJasa::whereMonth('tanggal_booking',$bulan)->whereYear('tanggal_booking',$tahun)->count();
-            $counter_homestay = TransaksiHomestay::whereMonth('check_in',$bulan)->whereYear('check_in',$tahun)->count();
+            $counter_homestay = TransaksiHomestay::whereMonth('transaction_date',$bulan)->whereYear('check_in',$tahun)->count();
             $counter_barang = TransaksiBarang::whereMonth('transaction_date',$bulan)->whereYear('transaction_date',$tahun)->count();
             $temp = array(
                 'bulan'=>$bulan2,
@@ -117,38 +123,6 @@ class HomeController extends Controller
 			if($a['nilai'] == $b['nilai']) return 0;
 			return ($a['nilai'] > $b['nilai']) ? -1 : 1;
         });
-        // dd($data_pemanduJasa);
-
-
-        $chartjs = app()->chartjs
-        ->name('lineChartTest')
-        ->type('line')
-        ->size(['width' => 400, 'height' => 200])
-        ->labels(['January', 'February', 'March', 'April', 'May', 'June', 'July'])
-        ->datasets([
-            [
-                "label" => "My First dataset",
-                'backgroundColor' => "rgba(38, 185, 154, 0.31)",
-                'borderColor' => "rgba(38, 185, 154, 0.7)",
-                "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                "pointHoverBackgroundColor" => "#fff",
-                "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                'data' => [65, 59, 80, 81, 56, 55, 40],
-            ],
-            [
-                "label" => "My Second dataset",
-                'backgroundColor' => "rgba(38, 185, 154, 0.31)",
-                'borderColor' => "rgba(38, 185, 154, 0.7)",
-                "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
-                "pointHoverBackgroundColor" => "#fff",
-                "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                'data' => [12, 33, 44, 44, 55, 23, 40],
-            ]
-        ])
-        ->options([]);
-        // dd($chartjs);
-        return view('home', compact('data','data_pemanduJasa','data_pemanduHomestay','data_pemanduBarang', 'chartjs'));
+        return view('home', compact('data','data_pemanduJasa','data_pemanduHomestay','data_pemanduBarang', 'chartjs', 'counterPemandu', 'counterJasa', 'counterHomestay', 'counterBarang'));
     }
 }

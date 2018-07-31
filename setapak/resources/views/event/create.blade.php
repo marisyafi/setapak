@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
+
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -11,7 +12,7 @@
             <ol class="breadcrumb">
                 <li><a href="{{url('/home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
                 <li><a href="{{url('/event')}}"><i class="fa fa-dashboard"></i> Event</a></li>
-                <li class="active">Create</li>
+                <li  class="active">Create</li>
             </ol>
         </section>
         
@@ -47,7 +48,7 @@
                     
                         <div class="form-group @if($errors->has('picture')) has-error @endif">
                             <label for="picture-field">Picture</label>
-                            <input type="file" id="picture-field" name="picture" accept="image/x-png,image/gif,image/jpeg" class="form-control" value="{{ old("picture") }}"/>
+                            <input type="file" id="picture-field" name="picture" accept="image/x-png,image/gif,image/jpeg" class="form-control" value="{{ old("picture") }}" />
                             @if($errors->has("picture"))
                              <span class="help-block">{{ $errors->first("picture") }}</span>
                             @endif
@@ -62,8 +63,10 @@
             </div>
         </section>
     </div>
-@endsection
+
     <!-- /.content -->
+@endsection
+
 @section('script')
 <script src="https://cdn.ckeditor.com/4.5.7/standard/ckeditor.js"></script>
 <script>

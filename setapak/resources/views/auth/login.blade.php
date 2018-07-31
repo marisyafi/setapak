@@ -15,7 +15,7 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{asset('plugins/iCheck/square/blue.css')}}">
+  <link rel="stylesheet" href="{{asset('iCheck/square/blue.css')}}">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -30,7 +30,7 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>Setapak</a>
+    <a><b>Admin</b>Setapak</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -40,7 +40,7 @@
       {{csrf_field()}}
       <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus  placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        {{-- <span class="glyphicon glyphicon-envelope form-control-feedback"></span> --}}
         @if ($errors->has('email'))
           <span class="help-block">
             <strong>{{ $errors->first('email') }}</strong>
@@ -50,7 +50,7 @@
 
       <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
         <input id="password" type="password" class="form-control" placeholder="Password" name="password" required>
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        {{-- <span class="glyphicon glyphicon-lock form-control-feedback"></span> --}}
         @if ($errors->has('password'))
           <span class="help-block">
             <strong>{{ $errors->first('password') }}</strong>
@@ -86,7 +86,7 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <!-- iCheck -->
-<script src="{{asset('plugins/iCheck/icheck.min.js')}}"></script>
+<script src="{{asset('iCheck/icheck.min.js')}}"></script>
 <script>
   $(function () {
     $('input').iCheck({
