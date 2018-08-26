@@ -30,19 +30,19 @@
                             @endif
                         </div>
 
-                        <div class="form-group @if($errors->has('tanggal')) has-error @endif">
-                            <label for="tanggal-field">Tanggal Terbit</label>
-                            <input type="date" id="tanggal-field" name="tanggal" class="form-control date-picker" value="{{ old("tanggal") }}"/>
-                            @if($errors->has("tanggal"))
-                             <span class="help-block">{{ $errors->first("tanggal") }}</span>
-                            @endif
-                        </div>
-
                         <div class="form-group @if($errors->has('description')) has-error @endif">
                             <label for="description-field">Description</label>
                             <textarea class="form-control" id="editor1" rows="3" name="description">{{ old("description") }}</textarea>
                             @if($errors->has("description"))
                              <span class="help-block">{{ $errors->first("description") }}</span>
+                            @endif
+                        </div>
+
+                        <div class="form-group @if($errors->has('link')) has-error @endif">
+                            <label for="link-field">Link</label>
+                            <input type="text" id="link-field" name="link" class="form-control" value="{{ old("link") }}"/>
+                            @if($errors->has("link"))
+                             <span class="help-block">{{ $errors->first("link") }}</span>
                             @endif
                         </div>
                     

@@ -44,6 +44,7 @@ class BankController extends Controller
 
         $bank = new Bank;
         $bank->nama_bank = $request->input("nama_bank");
+        $bank->nama = $request->input("nama");
         $bank->no_rekening = $request->input("no_rekening");
         $bank->photo = $request->input("photo");
         $bank->status = "0";
@@ -93,12 +94,14 @@ class BankController extends Controller
     {
         $this->validate($request, [
             'nama_bank' => 'required|max:255',
-            'no_rekening' => 'required|numeric',          
-			'picture' => 'mimes:jpg,jpeg,png',                     
+            'nama' => 'required|max:255',
+            'no_rekening' => 'required|numeric',               
+			'picture' => 'mimes:jpg,jpeg,png',              
         ]);
             
-        $bank = Bank::findOrFail($id);
+        $bank = Bank::findOrFail($request->bank_id);
         $bank->nama_bank = $request->input("nama_bank");
+        $bank->nama = $request->input("nama");
         $bank->no_rekening = $request->input("no_rekening");
 
         if ($request->hasFile('photo')) {

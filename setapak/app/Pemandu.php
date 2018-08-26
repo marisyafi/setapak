@@ -17,5 +17,17 @@ class Pemandu extends Model
     public function jasa(){
         return $this->hasMany('App\TransaksiJasa', 'pemandu_id', 'pemandu_id');
     }
+
+    public function homestay(){
+        return $this->hasMany('App\TransaksiHomestay', 'pemandu_id', 'pemandu_id');
+    }
+
+    public function barang(){
+        return $this->hasMany('App\TransaksiBarang', 'pemandu_id', 'pemandu_id');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\UserWisatawan', 'user_id', 'user_id');
+    }
     
 }

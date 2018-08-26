@@ -11,6 +11,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
+  <!-- Bootstrap 3.3.7 -->
+  <link rel="stylesheet" href="{{asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('bower_components/font-awesome/css/font-awesome.min.css')}}">
   <!-- Ionicons -->
@@ -19,6 +21,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
   <!-- AdminLTE Skins -->
   <link rel="stylesheet" href="{{asset('dist/css/skins/skin-blue.min.css')}}">
+  <!-- Google Font -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
   <!-- REQUIRED JS SCRIPTS -->
   <!-- Nama -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
@@ -36,10 +40,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
-
-  <!-- Google Font -->
-  <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -131,10 +131,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </header>
   <!-- Left side column. contains the logo and sidebar -->
   <aside class="main-sidebar">
-
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
@@ -146,31 +144,61 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <a><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
-
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
-        <!-- Optionally, you can add icons to the links -->
-        <li><a href="{{ url('/home')}}"><i class="fa fa-dashboard"></i> 
-            <span>Dashboard</span></a>
+        <li class="active">
+          <a href="{{ url('/home')}}">
+            <i class="fa fa-dashboard"></i><span>Dashboard</span>
+          </a>
         </li>
-        <li class="treeview"><a href="#"><i class="fa fa-pencil"></i>
-            <span>Posting</span>
-            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pencil"></i><span>Posting</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
           <ul class="treeview-menu">
             <li><a href="{{url('/artikels')}}"><i class="fa fa-newspaper-o"></i> Artikel</a></li>
             <li><a href="{{url('/event')}}"><i class="fa fa-bullhorn"></i> Event</a></li>
           </ul>
         </li>
-        <li><a href="{{url('/pemandu-wisata')}}"><i class="fa fa-users"></i> 
-            <span>Pemandu Wisata</span></a>
+        <li>
+          <a href="{{url('/pemandu-wisata')}}">
+            <i class="fa fa-users"></i><span>Pemandu Wisata</span>
+          </a>
         </li>
-        <li><a href="{{url('/pembayaran')}}"><i class="fa fa-credit-card"></i> 
-            <span>Pembayaran</span></a>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-credit-card"></i><span>Pembayaran</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li class="treeview">
+              <a href="#"><i class="fa fa-bank"></i> Wisatawan
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+              </a>
+              <ul class="treeview-menu">
+                <li><a href="{{url('/pembayaran')}}"><i class="fa fa-circle-o"></i> Jasa</a></li>
+                <li><a href="{{url('/pembayaran-homestay')}}"><i class="fa fa-circle-o"></i> Homestay</a></li>
+                <li><a href="{{url('/pembayaran-barang')}}"><i class="fa fa-circle-o"></i> Barang</a></li>
+              </ul>
+            </li>
+            <li><a href="{{url('/pembayaran-pemandu')}}"><i class="fa fa-map-marker"></i> Pemandu</a></li>
+          </ul>
         </li>
-        <li class="treeview"><a href="#"><i class="fa fa-gears"></i>
-            <span>Setting</span>
-            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-gears"></i><span>Manajemen Data</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
           <ul class="treeview-menu">
             <li><a href="{{url('bank')}}"><i class="fa fa-bank"></i> Bank</a></li>
             <li><a href="{{url('lokasi')}}"><i class="fa fa-map-marker"></i> Lokasi</a></li>
@@ -208,6 +236,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <script src="{{asset('bower_components/jquery/dist/jquery.min.js')}}"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="{{asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<!-- FastClick -->
+<script src="{{asset('bower_components/fastclick/lib/fastclick.js')}}"></script>
 <!-- ChartJS -->
 <script src="{{asset('bower_components/chart.js/Chart.js')}}"></script>
 <!-- AdminLTE App -->

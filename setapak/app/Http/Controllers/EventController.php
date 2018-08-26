@@ -45,7 +45,8 @@ class EventController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'description' => 'required',
-            'tanggal'=>'required',            
+            'tanggalpelaksanaan'=>'required',
+            'sumber' => 'required',            
 			'picture' => 'mimes:jpg,jpeg,png',                     
         ]);
 
@@ -55,7 +56,8 @@ class EventController extends Controller
         $event->user = "Admin";
         $event->description = $request->input("description");
         $event->picture = $request->input("picture");
-        $event->tanggal = $request->input("tanggal");
+        $event->tanggalpelaksanaan = $request->input("tanggalpelaksanaan");
+        $event->sumber = $request->input("sumber");
         $event->status = 0;
 		
 		if ($request->hasFile('picture')) {
@@ -107,7 +109,8 @@ class EventController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'description' => 'required',
-            'tanggal'=>'required',            
+            'tanggalpelaksanaan'=>'required',
+            'sumber' => 'required',            
 			'picture' => 'mimes:jpg,jpeg,png',                                       
         ]);
 
@@ -115,7 +118,8 @@ class EventController extends Controller
 		$event = Event::findOrFail($id);
 		$event->title = $request->input("title");
         $event->description = $request->input("description");
-        $event->tanggal = $request->input("tanggal");
+        $event->tanggalpelaksanaan = $request->input("tanggalpelaksanaan");
+        $event->sumber = $request->input("sumber");
 
 		if ($request->hasFile('picture')) {
 			$event->picture = $request->input("picture");
@@ -148,9 +152,9 @@ class EventController extends Controller
     public function dataEvent(){		
 
 		return Datatables::queryBuilder(DB::table('event')
-		->orderBy('tanggal', 'desc'))
-		->editColumn('tanggal', function ($ev) {
-			return date('j F Y', strtotime($ev->tanggal));
+		->orderBy('tanggalpelaksanaan', 'desc'))
+		->editColumn('tanggalpelaksanaan', function ($ev) {
+			return date('j F Y', strtotime($ev->tanggalpelaksanaan));
         })
 		// ->editColumn('active', function ($berita) {
         //     if($berita->active==1)

@@ -41,13 +41,13 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="user">USER</label>
-                            <p class="form-control-static">Admin</p>
+                            <label for="user">LINK</label>
+                            <p class="form-control-static">{{$event->link}}</p>
                         </div>
                         
                         <div class="form-group">
-                            <label for="user">TANGGAL TERBIT</label>
-                            <p class="form-control-static">{{date('j F Y', strtotime($event->tanggal))}}</p>
+                            <label for="user">TANGGAL PELAKSANAAN</label>
+                            <p class="form-control-static">{{date('j F Y', strtotime($event->tanggalpelaksanaan))}}</p>
                         </div>
 
                         <div class="form-group">

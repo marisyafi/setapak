@@ -32,11 +32,11 @@
                             @endif
                         </div>
 
-                        <div class="form-group @if($errors->has('tanggal')) has-error @endif">
-                            <label for="tanggal-field">Tanggal Terbit</label>
-                            <input type="date" id="tanggal-field" name="tanggal" class="form-control date-picker" value="{{ old("tanggal") }}"/>
-                            @if($errors->has("tanggal"))
-                                <span class="help-block">{{ $errors->first("tanggal") }}</span>
+                        <div class="form-group @if($errors->has('tanggalpelaksanaan')) has-error @endif">
+                            <label for="tanggalpelaksanaan-field">Tanggal Pelaksanaan</label>
+                            <input type="date" id="tanggalpelaksanaan-field" name="tanggalpelaksanaan" class="form-control date-picker" value="{{ old("tanggalpelaksanaan") }}"/>
+                            @if($errors->has("tanggalpelaksanaan"))
+                                <span class="help-block">{{ $errors->first("tanggalpelaksanaan") }}</span>
                             @endif
                         </div>
 
@@ -45,6 +45,14 @@
                             <textarea class="form-control" id="editor1" rows="3" name="description">{{ is_null(old("description")) ? $event->description : old("description") }}</textarea>
                             @if($errors->has("description"))
                              <span class="help-block">{{ $errors->first("description") }}</span>
+                            @endif
+                        </div>
+
+                        <div class="form-group @if($errors->has('link')) has-error @endif">
+                            <label for="link-field">Link</label>
+                            <input type="text" id="link-field" name="link" class="form-control" value="{{ is_null(old("link")) ? $event->link : old("link") }}"/>
+                            @if($errors->has("link"))
+                             <span class="help-block">{{ $errors->first("link") }}</span>
                             @endif
                         </div>
 

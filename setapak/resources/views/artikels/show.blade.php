@@ -32,18 +32,18 @@
                         </div>
 
                         <div class="form-group">
-                            <h4 for="user"><strong>USER</strong></h4>
-                            <h5 class="form-control-static">Admin</h5>
-                        </div>
-                        
-                        <div class="form-group">
                             <h4 for="user"><strong>TANGGAL TERBIT</strong></h4>
-                            <h5 class="form-control-static">{{date('j F Y', strtotime($artikel->tanggal))}}</h5>
+                            <h5 class="form-control-static">{{date('j F Y', strtotime($artikel->updated_at))}}</h5>
                         </div>
 
                         <div class="form-group">
                             <h4 for="description"><strong>DESCRIPTION</strong></h4>
                             <h5 class="form-control-static">{!!$artikel->description!!}</h5>
+                        </div>
+
+                        <div class="form-group">
+                            <h4 for="sumber"><strong>SUMBER</strong></h4>
+                            <h5 class="form-control-static">{{$artikel->sumber}}</h5>
                         </div>
 
                         <div class="form-group">

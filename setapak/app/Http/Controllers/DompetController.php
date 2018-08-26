@@ -3,14 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Dompet;
 
-class DaftarJasaController extends Controller
+class DompetController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +14,8 @@ class DaftarJasaController extends Controller
      */
     public function index()
     {
-        return view('daftarProduk.indexJasa');
+        $dompet = Dompet::get();
+        return view('dompet.index', compact('dompet'));
     }
 
     /**
@@ -73,7 +70,15 @@ class DaftarJasaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'status' => 'required'
+        ]);
+            
+        $dompet = Dompet::findOrFail($id);
+        $dompet->status = $request->input("status");
+        $dompet->save();
+
+        return redirect()->route('dompet.index')->with('message', 'Memperbaharui status berhasil.');
     }
 
     /**

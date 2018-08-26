@@ -21,4 +21,8 @@ class TransaksiBarang extends Model
     public function daftarBarang(){
         return $this->belongsTo('App\Barang', 'barang_id', 'barang_id');
     }
+
+    public function pemandu(){
+        return $this->belongsTo('App\Pemandu', 'pemandu_id', 'pemandu_id');
+    }
 }

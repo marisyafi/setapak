@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>NO</th>
                                         <th>NAMA BANK</th>
+                                        <th>NAMA REK</th>
                                         <th>NO. REK</th>
                                         <th>PHOTO</th>
                                         <th>OPTION</th>
@@ -38,15 +39,16 @@
                                 <tbody>
                                     @foreach($bank as $key => $banks)
                                     <tr>
-                                        <td>{{$key++}}</td>
+                                        <td>{{$key=$key+1}}</td>
                                         <td>{{$banks->nama_bank}}</td>
+                                        <td>{{$banks->nama}}</td>
                                         <td>{{$banks->no_rekening}}</td>
                                         <td>
                                             <img width="50" height="50" src="{{ asset($banks->photo) }}" class="img-responsive"/>
                                         </td>
                                         
                                         <td>
-                                            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-bank" data-bank="{{$banks}}"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+                                            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-bank" data-bank="{{$banks}}" data-bankid="{{$banks->bank_id}}"><i class="glyphicon glyphicon-edit"></i> Edit</button>
                                             <form action="{{route('bank.destroy', $banks->bank_id)}}" method="POST" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="'.csrf_token().'">
@@ -93,11 +95,21 @@
                                     <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
+                                    <input type="hidden" id="bank_id" name="bank_id" value="">
+
                                     <div class="form-group @if($errors->has('nama_bank')) has-error @endif">
                                         <label for="nama_bank">Nama Bank</label>
                                         <input type="text" id="nama_bank" name="nama_bank" class="form-control" />
                                         @if($errors->has("nama_bank"))
                                         <span class="help-block">{{ $errors->first("nama_bank") }}</span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group @if($errors->has('nama')) has-error @endif">
+                                        <label for="nama">Nama Rekening</label>
+                                        <input type="text" id="nama" name="nama" class="form-control" />
+                                        @if($errors->has("nama"))
+                                        <span class="help-block">{{ $errors->first("nama") }}</span>
                                         @endif
                                     </div>
 
@@ -110,7 +122,7 @@
                                     </div>
 
                                     <div class="form-group @if($errors->has('photo')) has-error @endif">
-                                        <label for="picture-field">Photo</label>
+                                        <label for="picture">Photo</label>
                                         <input type="file" id="picture-field" name="photo" accept="image/x-png,image/gif,image/jpeg" class="form-control"/>
                                         @if($errors->has("photo"))
                                         <span class="help-block">{{ $errors->first("photo") }}</span>
@@ -147,6 +159,14 @@
                                     <input type="text" id="nama_bank" name="nama_bank" class="form-control" value="{{ old("nama_bank") }}"/>
                                     @if($errors->has("nama_bank"))
                                     <span class="help-block">{{ $errors->first("nama_bank") }}</span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group @if($errors->has('namak')) has-error @endif">
+                                    <label for="nama">Nama Rekening</label>
+                                    <input type="text" id="nama" name="nama" class="form-control" value="{{ old("nama") }}"/>
+                                    @if($errors->has("nama"))
+                                    <span class="help-block">{{ $errors->first("nama") }}</span>
                                     @endif
                                 </div>
 
@@ -194,13 +214,11 @@
     $('#modal-bank').on('show.bs.modal', function (event) {
         var link = $(event.relatedTarget); // get the to the element DOM
         var dataBankEdit= link.data('bank'); // get the data that passed on
+        var bank_id = link.data('bankid');
         var modal = $(this); // make the current elemtn, which is #modal-bank to be accessible
 
-        // debuging console
-        console.log('link ', link);
-        console.log('bank data ', dataBankEdit);
-        console.log('element/dom modalnya ', modal);
-        // set the value of the form modal edit 
+        // set the value of the form modal edit
+        modal.find('#bank_id').val(bank_id);
         modal.find('#nama_bank').val(dataBankEdit["nama_bank"]);
         modal.find('#no_rekening').val(dataBankEdit["no_rekening"]);
     });

@@ -18,10 +18,9 @@
                 <div class="col-xs-12">
                     <div class="box">
                         <div class="box-header">
-                            <div class="row">
-                            <div class="box-tools pull-right">
+                            <div class="row pull-right">
                                     <a class="btn-sm btn-success " data-toggle="modal" data-target="#modal-tambah" data-bank="{{$lokasi}}"><i class="glyphicon glyphicon-plus"></i> Create</a>
-                            </div></div>
+                            </div>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body">
@@ -29,7 +28,7 @@
                                 <thead>
                                     <tr>
                                         <th>NO</th>
-                                        <th>KABUPATEN</th>
+                                        <th>LOKASI</th>
                                         <th>KECAMATAN</th>
                                         <th>OPTION</th>
                                     </tr>
@@ -37,12 +36,12 @@
                                 <tbody>
                                     @foreach($lokasi as $key => $lokasis)
                                     <tr>
-                                        <td>{{$key++}}</td>
-                                        <td>{{$lokasis->kabupaten}}</td>
-                                        <td>{{$lokasis->kecamatan}}</td>
+                                        <td>{{$key=$key+1}}</td>
+                                        <td>{{$lokasis->nama_wisata}}</td>
+                                        <td>{{$lokasis->alamat->kecamatan}}</td>
                                         <td>
-                                            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-lokasi" data-lokasi="{{$lokasis}}"><i class="glyphicon glyphicon-edit"></i> Edit</button>
-                                            <form action="{{route('lokasi.destroy', $lokasis->bank_id)}}" method="POST" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
+                                            <button type="button" class="btn btn-xs btn-warning" data-toggle="modal" data-target="#modal-lokasi" data-lokasi="{{$lokasis}}" data-wisataid="{{$lokasis->wisatacategory_id}}"><i class="glyphicon glyphicon-edit"></i> Edit</button>
+                                            <form action="{{route('lokasi.destroy', $lokasis->wisatacategory_id)}}" method="POST" style="display: inline;" onclick="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <input type="hidden" name="_token" value="'.csrf_token().'">
                                                 <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
@@ -67,23 +66,27 @@
                             <h4 class="modal-title"><strong>Edit</strong></h4>
                         </div>
                         <div class="modal-body">
-                                <form action="{{ route('lokasi.update', $lokasis->lokasi_id) }}" enctype="multipart/form-data" method="POST">
+                                <form action="{{ route('lokasi.update', $lokasis->wisatacategory_id) }}" method="POST">
                                     <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                                    <div class="form-group @if($errors->has('kabupaten')) has-error @endif">
-                                        <label for="title-field">Kabupaten</label>
-                                        <input type="text" id="kabupaten" name="kabupaten" class="form-control" value="{{ is_null(old("kabupaten")) ? $lokasis->kabupaten : old("kabupaten") }}"/>
-                                        @if($errors->has("kabupaten"))
-                                        <span class="help-block">{{ $errors->first("kabupaten") }}</span>
-                                        @endif
-                                    </div>
+                                    <input type="hidden" id="wisata_id" name="wisata_id" value="">
 
                                     <div class="form-group @if($errors->has('kecamatan')) has-error @endif">
-                                        <label for="title-field">Kecamatan</label>
-                                        <input type="text" id="kecamatan" name="kecamatan" class="form-control" value="{{ is_null(old("kecamatan")) ? $lokasis->kecamatan : old("kecamatan") }}"/>
-                                        @if($errors->has("kecamatan"))
-                                        <span class="help-block">{{ $errors->first("kecamatan") }}</span>
+                                        <label for="kecamatan">Kecamatan</label>
+                                        {{-- <input type="text" id="kecamatan" name="kecamatan" class="form-control" value="{{ is_null(old("kecamatan")) ? $lokasis->kecamatan : old("kecamatan") }}"/> --}}
+                                        <select id="kecamatan-id" name="kecamatan" class="form-control select2" style="width: 100%;">
+                                            @foreach($alamat as $alamats)
+                                            <option value="{{$alamats->alamatcategory_id}}">{{$alamats->kecamatan}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group @if($errors->has('nama_wisata')) has-error @endif">
+                                        <label for="nama_wisata">Lokasi</label>
+                                        <input type="text" id="nama_wisata" name="nama_wisata" class="form-control" value="{{$lokasis->nama_wisata}}"/>
+                                        @if($errors->has("nama_wisata"))
+                                        <span class="help-block">{{ $errors->first("nama_wisata") }}</span>
                                         @endif
                                     </div>
 
@@ -106,26 +109,26 @@
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title"><strong>Tambah Kecamatan</strong></h4>
+                            <h4 class="modal-title"><strong>Tambah Lokasi</strong></h4>
                         </div>
-                        <div class="modal-body">
-                            <form action="{{ route('lokasi.update', $lokasis->alamatcategory_id) }}" enctype="multipart/form-data" method="POST">
-                                <input type="hidden" name="_method" value="PUT">
+                        <form action="{{ route('lokasi.store') }}" enctype="multipart/form-data" method="POST">
+                            <div class="modal-body">
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                                <div class="form-group @if($errors->has('kabupaten')) has-error @endif">
-                                    <label for="kabupaten">Nama Kabupaten</label>
-                                    <input type="text" id="kabupaten" name="kabupaten" class="form-control" />
-                                    @if($errors->has("kabupaten"))
-                                    <span class="help-block">{{ $errors->first("kabupaten") }}</span>
-                                    @endif
+                                <div class="form-group @if($errors->has('kecamatan')) has-error @endif">
+                                    <label for="kecamatan">Kecamatan</label>
+                                    <select class="form-control select2" style="width: 100%;">
+                                        @foreach($alamat as $alamats)
+                                        <option value="{{$alamats->alamatcategory_id}}">{{$alamats->kecamatan}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
-                                <div class="form-group @if($errors->has('kecamatan')) has-error @endif">
-                                    <label for="kecamatan">Nomor Kecamatan</label>
-                                    <input type="text" id="kecamatan" name="kecamatan" class="form-control"/>
-                                    @if($errors->has("kecamatan"))
-                                    <span class="help-block">{{ $errors->first("kecamatan") }}</span>
+                                <div class="form-group @if($errors->has('nama_wisata')) has-error @endif">
+                                    <label for="nama_wisata">Lokasi</label>
+                                    <input type="text" id="nama_wisata" name="nama_wisata" class="form-control" value=""/>
+                                    @if($errors->has("nama_wisata"))
+                                    <span class="help-block">{{ $errors->first("nama_wisata") }}</span>
                                     @endif
                                 </div>
 
@@ -133,8 +136,8 @@
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary">Save</button>
                                 </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                         
                     </div>
                     <!-- /.modal-content -->
@@ -156,10 +159,17 @@
     $('#modal-lokasi').on('show.bs.modal', function (event) {
     var link = $(event.relatedTarget);
     var dataLokasiEdit = link.data('lokasi');
+    var wisata_id = link.data('wisataid');
     var modal = $(this);
-   
-    modal.find('#kabupaten').val(dataLokasiEdit["kabupaten"]);
-    modal.find('#kecamatan').val(dataLokasiEdit["kecamatan"]); 
+
+    console.log(dataLokasiEdit["alamatcategory_id"]);
+    
+    // var echelle= document.getElementById('kecamatan-id');
+    // echelle.value = '10' ;
+
+    modal.find('#wisata_id').val(wisata_id);
+    modal.find('#kecamatan-id option[value='+dataLokasiEdit["alamatcategory_id"]+']').attr('selected','true');
+    modal.find('#nama_wisata').val(dataLokasiEdit["nama_wisata"]);
     });
 
 </script>

@@ -35,8 +35,12 @@
                                             <td class="col-md-9"><h5>{{$pemandu->nama_company}}</h5></td>
                                         </tr>
                                         <tr>
-                                            <td class="col-md-3"><h5>Nama User</h5></td>
-                                            <td class="col-md-9"><h5>Charlie</h5></td>
+                                            <td class="col-md-3"><h5>Nama</h5></td>
+                                            <td class="col-md-9"><h5>{{$pemandu->user->nama}}</h5></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-md-3"><h5>Nomor Handphone</h5></td>
+                                            <td class="col-md-9"><h5>{{$pemandu->user->no_hp}}</h5></td>
                                         </tr>
                                         <tr>
                                             <td class="col-md-3"><h5>Alamat</h5></td>
@@ -50,9 +54,9 @@
                                             <td class="col-md-3"><h5>Status</h5></td>
                                             <td class="col-md-9">
                                                 @if($pemandu->pemandu_verifikasi==0)
-                                                    <h5>Unverified</h5>
+                                                    <h5><strong>Unverified</strong></h5>
                                                 @else 
-                                                    <h5>Verified</h5> 
+                                                    <h5 style="color: blue"><strong>Verified</strong></h5> 
                                                 @endif      
                                             </td>
                                         </tr>
@@ -79,6 +83,7 @@
                                                     <th>DESKRIPSI</th>
                                                     <th>LOKASI</th>
                                                     <th>HARGA</th> 
+                                                    <th> </th> 
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -88,7 +93,10 @@
                                                 <td>{{$jas->nama_jasa}}</td>
                                                 <td >{{$jas->deskripsi}}</td>
                                                 <td>{{$jas->lokasi_wisata}}</td>
-                                                <td><p class="pull-right">Rp. {{$jas->harga_jasa}}</p></td>
+                                                <td><p class="pull-right">Rp {{$jas->harga_jasa}}</p></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-jasa" data-jasa="{{$jas}}"><i class="glyphicon glyphicon-eye-open"></i> View</button>
+                                                </td>
                                             </tr>
                                             @endforeach
                                             </tbody>
@@ -103,6 +111,7 @@
                                                 <th>NAMA HOMESTAY</th>
                                                 <th>ALAMAT</th>
                                                 <th>HARGA</th> 
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -111,7 +120,10 @@
                                                 <td>{{++$key}}</td>
                                                 <td>{{$home->nama_homestay}}</td>
                                                 <td>{{$home->alamat}}</td>
-                                                <td><p class="pull-right">Rp. {{$home->harga_perhari}}</p></td>
+                                                <td><p class="pull-right">Rp {{$home->harga_perhari}}</p></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-homestay" data-homestay="{{$home}}"><i class="glyphicon glyphicon-eye-open"></i> View</button>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -127,6 +139,7 @@
                                                 <th>DESKRIPSI</th>
                                                 <th>HARGA</th>
                                                 <th>JUMLAH</th> 
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -135,8 +148,11 @@
                                                 <td>{{++$key}}</td>
                                                 <td>{{$bar->nama_barang}}</td>
                                                 <td>{{$bar->deskripsi}}</td>
-                                                <td><p class="pull-right">Rp. {{$bar->harga}}</p></td>
+                                                <td><p class="pull-right">Rp {{$bar->harga}}</p></td>
                                                 <td>{{$bar->kuantitas}}</td>
+                                                <td>
+                                                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-barang" data-barang="{{$bar}}"><i class="glyphicon glyphicon-eye-open"></i> View</button>
+                                                </td>
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -147,41 +163,71 @@
                             <!-- /.tab-content -->
                         </div>
                         <!-- nav-tabs-custom -->
-                        </div>
-                        <!-- /.col -->               
+                    </div>
+                    <!-- /.col --> 
+                    @include('pemandu.modal')              
                 </div>
             </div>
         </section>
     </div>
 @endsection
 @section('script')
-<script>
-// $(function () {
-//   $("#pemandu").DataTable({
-//         processing: true,
-//         serverSide: true,
-//         ajax: "{{ url('/pemandu-data')}}",
-//         columns: [
-//             {data: 'pemandu_id', name: 'pemandu_id'},
-//             {data: 'nama_company', name: 'nama_company'},
-//             {data: 'alamat', name: 'alamat'},
-//             {data: 'action', name: 'action'},
-//         ],
-//   });
-// });
 
-<script src="assets/js/lib/data-table/datatables.min.js"></script>
+{{-- <script src="assets/js/lib/data-table/datatables.min.js"></script> --}}
 <script type="text/javascript">
     $(document).ready(function(){
         $('#table-jasa').DataTable();
-    });
-    $(document).ready(function(){
         $('#table-homestay').DataTable();
-    });
-    $(document).ready(function(){
         $('#table-barang').DataTable();
     });
-</script>
+
+    // set the value of modal jasa
+    $('#modal-jasa').on('show.bs.modal', function (event) {
+        var link = $(event.relatedTarget); // get the to the element DOM
+        var dataJasa= link.data('jasa'); // get the data that passed on
+        var modal = $(this); // make the current elemtn, which is #modal-bank to be accessible
+
+        console.log(dataJasa);
+        // set the value of the form modal jasa 
+        modal.find('#nama_jasa').text(dataJasa["nama_jasa"]);
+        modal.find('#harga').text(dataJasa["harga_jasa"]);
+        modal.find('#deskripsi').text(dataJasa["deskripsi"]);
+        modal.find('#lokasi').text(dataJasa["lokasi_wisata"]);
+        // modal.find('#jenis').text(dataJasa.jenis["nama_jeniscategory"]);
+        modal.find('#photo').html('<img style="cursor:zoom-in" width="250" height="250" src="'+dataJasa["mainphoto"]+'"  class="img-responsive">')
+    });
+
+    // set the value of modal homestay
+    $('#modal-homestay').on('show.bs.modal', function (event) {
+        var link = $(event.relatedTarget); // get the to the element DOM
+        var dataHomestay= link.data('homestay'); // get the data that passed on
+        var modal = $(this); // make the current elemtn, which is #modal-bank to be accessible
+
+        console.log(dataHomestay);
+        // set the value of the form modal Homestay 
+        modal.find('#nama_homestay').text(dataHomestay["nama_homestay"]);
+        modal.find('#harga').text(dataHomestay["harga_perhari"]);
+        modal.find('#deskripsi').text(dataHomestay["deskripsi"]);
+        modal.find('#alamat').text(dataHomestay["alamat"]);
+        modal.find('#lokasi').text(dataHomestay.alamat["kecamatan"]);
+        modal.find('#photo').html('<img style="cursor:zoom-in" width="250" height="250" src="'+dataHomestay["mainphoto"]+'"  class="img-responsive">');
+    });
+
+    // set the value of modal barang
+    $('#modal-barang').on('show.bs.modal', function (event) {
+        var link = $(event.relatedTarget); // get the to the element DOM
+        var dataBarang= link.data('barang'); // get the data that passed on
+        var modal = $(this); // make the current elemtn, which is #modal-bank to be accessible
+
+        console.log(dataBarang);
+        // set the value of the form modal Barang 
+        modal.find('#nama_barang').text(dataBarang["nama_barang"]);
+        modal.find('#harga').text(dataBarang["harga"]);
+        modal.find('#deskripsi').text(dataBarang["deskripsi"]);
+        modal.find('#berat').text(dataBarang["berat_gram"]);
+        modal.find('#jumlah').text(dataBarang["kuantitas"]);
+        modal.find('#photo').html('<img style="cursor:zoom-in" width="250" height="250" src="'+dataBarang["mainphoto"]+'"  class="img-responsive">');
+    });
 </script>
 @endsection
     <!-- /.content -->

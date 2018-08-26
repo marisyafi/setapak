@@ -45,6 +45,7 @@ class ArtikelController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
+            'sumber' => 'required',
             'description' => 'required',          
 			'picture' => 'mimes:jpg,jpeg,png',                     
         ]);
@@ -54,8 +55,8 @@ class ArtikelController extends Controller
 		$artikel->title = $request->input("title");
         $artikel->user = "Admin";
         $artikel->description = $request->input("description");
+        $artikel->sumber = $request->input("sumber");
         $artikel->picture = $request->input("picture");
-        $artikel->tanggal = $request->input("tanggal");        
         $artikel->status = 0;
 		
 		if ($request->hasFile('picture')) {
@@ -106,16 +107,15 @@ class ArtikelController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'description' => 'required',
-            'tanggal'=>'required',            
-			'picture' => 'mimes:jpg,jpeg,png',                                       
+            'sumber' => 'required',
+            'description' => 'required',          
+			'picture' => 'mimes:jpg,jpeg,png',                                        
         ]);
-
-		$user = Auth::user();        
+     
 		$artikel = Artikel::findOrFail($id);
 		$artikel->title = $request->input("title");
+        $artikel->sumber = $request->input("sumber");
         $artikel->description = $request->input("description");
-        $artikel->tanggal = $request->input("tanggal");
 
 		if ($request->hasFile('picture')) {
 			$artikel->picture = $request->input("picture");
@@ -148,18 +148,11 @@ class ArtikelController extends Controller
     public function dataArtikel(){		
 
 		return Datatables::queryBuilder(DB::table('artikel')
-		->orderBy('tanggal', 'desc'))
-		->editColumn('tanggal', function ($berita) {
-			return date('j F Y', strtotime($berita->tanggal));
+		->orderBy('created_at', 'desc'))
+		->editColumn('tanggal', function ($artikel) {
+			return date('j F Y', strtotime($artikel->updated_at));
         })
-		// ->editColumn('active', function ($berita) {
-        //     if($berita->active==1)
-        //         return "Yes";
-        //     else
-        //         return "No";
-        // })
         ->addColumn('action', function ($d) {
-		// 	// if(Auth::user()->role != "publik")
 			return 
             '<a href="/artikels/'.$d->id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> View</a>
             <a href="/artikels/'.$d->id.'/edit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-edit"></i> Edit</a>

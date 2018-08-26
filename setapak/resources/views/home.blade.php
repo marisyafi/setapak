@@ -197,19 +197,33 @@ $(function () {
     },
     series: [{
         name: 'Jasa',
-        data: [<?php for ($i=0;$i<=4;$i++){ echo $data_pemanduJasa[$i]['nilai'].",";}?>]
-
+        data: [
+            @foreach($data_pemanduJasa as $data_jasa)
+                {{$data_jasa['nilai'].","}}
+            @endforeach
+            ]
     }, {
         name: 'Homestay',
-        data: [<?php for ($i=0;$i<=4;$i++){ echo $data_pemanduHomestay[$i]['nilai'].",";}?>]
-
+        data: [
+            @foreach($data_pemanduHomestay as $data_homestay)
+                {{$data_homestay['nilai'].","}}
+            @endforeach
+            ]
     }, {
         name: 'Produk',
-        data: [<?php for ($i=0;$i<=4;$i++){ echo $data_pemanduBarang[$i]['nilai'].",";}?>]
-
+        data: [
+            @foreach($data_pemanduBarang as $data_barang)
+                {{$data_barang['nilai'].","}}
+            @endforeach
+            ]
     }]
+    
 });
 });
+</script>
+
+<script>
+$('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 </script>
 @endsection
 

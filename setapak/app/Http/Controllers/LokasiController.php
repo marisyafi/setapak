@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Lokasi;
+use App\Alamat;
 
 class LokasiController extends Controller
 {
@@ -14,8 +15,9 @@ class LokasiController extends Controller
      */
     public function index()
     {
-        $lokasi = Lokasi::get();  
-        return view('lokasi.index', compact('lokasi'));
+        $lokasi = Lokasi::get(); 
+        $alamat = Alamat::get();  
+        return view('lokasi.index', compact('lokasi', 'alamat'));
     }
 
     /**
@@ -37,19 +39,17 @@ class LokasiController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'kabupaten' => 'required|max:255',
-            'kecamatan' => 'required|',                   
+            'nama_wisata' => 'required|max:255',                   
         ]);
 
         $lokasi = new Lokasi;
-        $lokasi->provinsi = "Jawa Barat";
-        $lokasi->kode_pos = NULL;
-        $lokasi->kabupaten = $request->input("kabupaten");
-        $lokasi->kecamatan = $request->input("kecamatan");
+        $lokasi->alamatcategory_id = $request->input("kecamatan");
+        $lokasi->nama_wisata = $request->input("nama_wisata");
 
+        dd($request);
         $lokasi->save();
 
-        return redirect()->route('lokasi.index');
+        return redirect()->back();
     }
 
     /**
@@ -71,7 +71,7 @@ class LokasiController extends Controller
      */
     public function edit($id)
     {
-        //
+        $lokasi = Lokasi::findOrFail($id);
     }
 
     /**
@@ -84,17 +84,17 @@ class LokasiController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'kabupaten' => 'required|max:255',
-            'kecamatan' => 'required|',                   
+            'kecamatan' => 'required|max:255',
+            'nama_wisata' => 'required|',                   
         ]);
-
-        $lokasi = Lokasi::findOrFail($id);
-        $lokasi->kabupaten = $request->input("kabupaten");
-        $lokasi->kecamatan = $request->input("kecamatan");
+        
+        $lokasi = Lokasi::findOrFail($request->wisata_id);
+        $lokasi->alamatcategory_id = $request->input("kecamatan");
+        $lokasi->nama_wisata = $request->input("nama_wisata");
 
         $lokasi->save();
 
-        return redirect()->route('lokasi.index')->with('message2', 'Item updated successfully.');
+        return redirect()->back();
     }
 
     /**

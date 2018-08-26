@@ -25,4 +25,13 @@ class UserWisatawan extends Model
     public function barang(){
         return $this->hasMany('App\TransaksiBarang', 'user_id', 'user_id');
     }
+
+    public function penarikan(){
+        return $this->hasMany('App\Dompet', 'user_id', 'user_id');
+    }
+
+    public function pemandu(){
+        return $this->belongsTo('App\Pemandu', 'user_id', 'user_id');
+    }
+
 }

@@ -27,17 +27,51 @@ class PembayaranController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function index()
+    public function index()
     {
-        $jasa=TransaksiJasa::get();
-        $homestay=TransaksiHomestay::get();
-        $daftar=Homestay::get();
-        $barang=TransaksiBarang::get();
+        $jasau=TransaksiJasa::where('transaction_status', 0)->orWhere('transaction_status', 1)->get();
+        $jasac=TransaksiJasa::where('transaction_status', 2)
+                            ->orWhere('transaction_status', 3)
+                            ->orWhere('transaction_status', 4)
+                            ->orWhere('transaction_status', 5)->get();
+        $homestayu=TransaksiHomestay::where('transaction_status', 0)->orWhere('transaction_status', 1)->get();
+        $homestayc=TransaksiHomestay::where('transaction_status', 2)
+                            ->orWhere('transaction_status', 3)
+                            ->orWhere('transaction_status', 4)
+                            ->orWhere('transaction_status', 5)->get();   
+        $barangu=TransaksiBarang::where('transaction_status', 0)->orWhere('transaction_status', 1)->get();
+        $barangc=TransaksiBarang::where('transaction_status', 2)
+                            ->orWhere('transaction_status', 3)
+                            ->orWhere('transaction_status', 4)
+                            ->orWhere('transaction_status', 5)
+                            ->orWhere('transaction_status', 6)->get();  
         $user=UserWisatawan::get();
         $pemandu=Pemandu::get();
-        return view('pembayaran.index', compact('jasa', 'homestay', 'daftar', 'barang', 'daftarBarang','user', 'pemandu'));
+        return view('pembayaran.index', compact('jasau', 'jasac', 'homestayu', 'homestayc', 'barangu', 'barangc', 'daftarBarang','user', 'pemandu'));
     }
-
+    public function indexHomestay()
+    {
+        $homestayu=TransaksiHomestay::where('transaction_status', 0)->orWhere('transaction_status', 1)->get();
+        $homestayc=TransaksiHomestay::where('transaction_status', 2)
+                            ->orWhere('transaction_status', 3)
+                            ->orWhere('transaction_status', 4)
+                            ->orWhere('transaction_status', 5)->get(); 
+        $user=UserWisatawan::get();
+        $pemandu=Pemandu::get();
+        return view('pembayaran.homestay', compact('homestayu', 'homestayc', 'user', 'pemandu'));
+    }
+    public function indexBarang()
+    {   
+        $barangu=TransaksiBarang::where('transaction_status', 0)->orWhere('transaction_status', 1)->get();
+        $barangc=TransaksiBarang::where('transaction_status', 2)
+                            ->orWhere('transaction_status', 3)
+                            ->orWhere('transaction_status', 4)
+                            ->orWhere('transaction_status', 5)
+                            ->orWhere('transaction_status', 6)->get();  
+        $user=UserWisatawan::get();
+        $pemandu=Pemandu::get();
+        return view('pembayaran.barang', compact('barangu', 'barangc', 'user', 'pemandu'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -67,10 +101,7 @@ class PembayaranController extends Controller
      */
     public function show($id)
     {
-        $jasa = TransaksiJasa::findOrFail($id);
-        $homestay = TransaksiHomestay::findOrFail($id);
-        $barang = TransaksiBarang::findOrFail($id);
-		return view('pembayaran.show', compact('jasa', 'homestay', 'barang'));
+        //
     }
 
     /**
@@ -101,14 +132,6 @@ class PembayaranController extends Controller
         $jasa = TransaksiJasa::findOrFail($id);
         $jasa->transaction_status = $request->input("transaction_status");
         $jasa->save();
-        
-        
-        // $barang = TransaksiBarang::findOrFail($id);
-        // if($barang->transaction_status==0)
-        //     $barang->transaction_status = 1;
-        // else
-        //     $barang->transaction_status = 0;
-        // $barang->save();
 
         return redirect()->route('pembayaran.index');
     }
@@ -147,35 +170,15 @@ class PembayaranController extends Controller
 
 		return redirect()->route('pembayaran.index');
     }
-
-   	// public function approvehtml($d){
-        // if($d->status==0) 
-        //     return 
-        //     '<form action="/pembayaranstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Publsih? Are you sure?")) { return true } else {return false };">
-        //         <input type="hidden" name="_method" value="POST">
-        //         <input type="hidden" name="status" value="1">
-        //         <input type="hidden" name="_token" value="'.csrf_token().'">
-        //         <button type="submit" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-ok"></i> Approve</button>
-        //     </form>';
-        // else
-        //      return
-        //     '<form action="/pembayaranstatus/'.$d->id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Unpublish ID ? Are you sure?")) { return true } else {return false };">
-        //         <input type="hidden" name="_method" value="POST">
-        //         <input type="hidden" name="status" value="0">
-        //         <input type="hidden" name="_token" value="'.csrf_token().'">
-        //         <button type="submit" class="btn btn-xs btn-warning"><i class="glyphicon glyphicon-remove"></i> Reject</button>
-        //     </form>';
-        
-    // }
     
     public function statusJasa(Request $request, $id) {
     
             $this->validate($request, [
                 'transaction_status' => 'required'
             ]);
-            
             $jasa = TransaksiJasa::findOrFail($id);
             $jasa->transaction_status = $request->input("transaction_status");
+            $jasa->tanggal_transfer = now();
             $jasa->save();
 
             return redirect()->route('pembayaran.index')->with('message', 'Memperbaharui status berhasil.');
@@ -199,7 +202,6 @@ class PembayaranController extends Controller
             $this->validate($request, [
                 'transaction_status' => 'required'
             ]);
-            
             $barang = TransaksiBarang::findOrFail($id);
             $barang->transaction_status = $request->input("transaction_status");
             $barang->save();

@@ -21,4 +21,8 @@ class TransaksiHomestay extends Model
     public function daftar(){
         return $this->belongsTo('App\Homestay', 'homestay_id', 'homestay_id');
     }
+
+    public function pemandu(){
+        return $this->belongsTo('App\Pemandu', 'pemandu_id', 'pemandu_id');
+    }
 }

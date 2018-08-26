@@ -96,10 +96,7 @@ class PemanduController extends Controller
      */
     public function destroy($id)
     {
-        $pemandu = Pemandu::findOrFail($id);
-		$pemandu->delete();
-
-		return redirect()->route('pemandu-wisata.index')->with('message2', 'Item deleted successfully.');
+        //
     }
 
     public function dataPemandu(){		
@@ -115,14 +112,8 @@ class PemanduController extends Controller
             })
 
         ->addColumn('action', function ($d) {
-		// 	// if(Auth::user()->role != "publik")
 			return 
             '<a href="/pemandu-wisata/'.$d->pemandu_id.'" class="btn btn-xs btn-primary" ><i class="glyphicon glyphicon-eye-open"></i> Detail</a>
-            <form action="/pemandu-wisata/'.$d->pemandu_id.'" method="POST" style="display: inline;" onsubmit="if(confirm("Delete? Are you sure?")) { return true } else {return false };">
-                <input type="hidden" name="_method" value="DELETE">
-                <input type="hidden" name="_token" value="'.csrf_token().'">
-                <button type="submit" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-trash"></i> Hapus</button>
-            </form>
 		 '.$this->approvehtml($d).'';
         })
 		->make(true);

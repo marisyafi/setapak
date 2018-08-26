@@ -27,7 +27,6 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>TITLE</th>
-                                        <th>USER</th>
                                         <th>TANGGAL TERBIT</th>
                                         <th>OPTION</th>
                                     </tr>
@@ -55,8 +54,7 @@ $(function () {
         columns: [
             {data: 'id', name: 'id'},
             {data: 'title', name: 'title'},
-            {data: 'user', name: 'user'},
-            {data: 'tanggal', name: 'tanggal'},
+            {data: 'tanggal', name: 'updated_at'},
             {data: 'action', name: 'action'},
         ],
   });

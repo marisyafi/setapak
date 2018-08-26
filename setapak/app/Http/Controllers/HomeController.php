@@ -123,6 +123,7 @@ class HomeController extends Controller
 			if($a['nilai'] == $b['nilai']) return 0;
 			return ($a['nilai'] > $b['nilai']) ? -1 : 1;
         });
+        // dd($data_pemanduBarang, $data_pemanduHomestay, $data_pemanduJasa);
         return view('home', compact('data','data_pemanduJasa','data_pemanduHomestay','data_pemanduBarang', 'chartjs', 'counterPemandu', 'counterJasa', 'counterHomestay', 'counterBarang'));
     }
 }

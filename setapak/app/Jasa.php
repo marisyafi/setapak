@@ -10,11 +10,19 @@ class Jasa extends Model
 
     protected $primaryKey = 'jasa_id';
 
-    public $timestamp = false;
+    public $timestamps = false;
 
-    protected $fillable = ['jasa_id', ' pemandu_id', 'alamatcategory_id', 'nama_jasa', 'harga_jasa', 'deskripsi', 'lokasi_wisata', 'status_avail'];
+    protected $fillable = ['pemandu_id', 'alamatcategory_id', 'jeniscategory_id', 'nama_jasa', 'harga_jasa', 'deskripsi', 'lokasi_wisata', 'status_avail'];
 
     public function daftarJasa(){
         return $this->hasMany('App\TransaksiJasa', 'jasa_id', 'jasa_id');
+    }
+
+    public function pemandu(){
+        return $this->belongsTo('App\Pemandu', 'pemandu_id', 'pemandu_id');
+    }
+
+    public function jenis(){
+        return $this->belongsTo('App\Jenis', 'jeniscategory_id', 'jeniscategory_id');
     }
 }
